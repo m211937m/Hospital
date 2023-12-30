@@ -44,8 +44,6 @@ class DoctorRepository implements DoctorInterface
 
             // store trans
             $doctors->name = $request->name;
-            $appointments = $request->appointments ?? [];
-            $doctors->appointments = implode(",", $appointments);
             $doctors->save();
 
             //upload image

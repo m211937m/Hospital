@@ -29,16 +29,12 @@
         <div class="card">
             <div class="card-header pb-0">
                   <a href="{{ route('Doctors.create') }}" class="btn btn-primary">{{ trans('Dashboard/doctor_trans.add') }}</a>
-                  <button type="button" class="btn btn-danger"
-                            id="btn_delete_all">{{trans('Dashboard/doctor_trans.delete_group')}}</button>
-                  @include('Dashboard.Doctors.delete_select')
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table text-md-nowrap" id="example2">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th><input name="select_all" id="example_select_all" type="checkbox"></th>
                                     <th>{{ trans("Dashboard/doctor_trans.image")  }}</th>
                                     <th>{{ trans("Dashboard/doctor_trans.name")  }}</th>
                                     <th>{{ trans("Dashboard/doctor_trans.email")  }}</th>
@@ -49,20 +45,20 @@
                                     <th>{{ trans("Dashboard/doctor_trans.status") }}</th>
                                     <th>{{ trans("Dashboard/doctor_trans.created_at") }}</th>
                                     <th>{{ trans("Dashboard/doctor_trans.operations") }}</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                             @forelse ($doctors as $doctor)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td><input type="checkbox" name="delete_select" value="{{ $doctor->id }}" class="delete_select"></td>
                                     <td>
                                         @if($doctor->image)
                                         <img src="{{Url::asset('Dashboard/img/doctor/'.$doctor->image->filename)}}"
                                              height="50px" width="50px" alt="">
 
                                         @else
-                                            <img src="{{Url::asset('Dashboard/img/doctor/defult.png')}}" height="50px"
+                                            <img src="{{Url::asset('Dashboard/img/doctor/defult.jpg')}}" height="50px"
                                                  width="50px" alt="">
                                         @endif
                                     </td>
@@ -79,16 +75,16 @@
                                     <td>{{ $doctor->created_at->diffForHumans() }}</td>
                                     <td>
                                         <div class="dropdown">
-                                            <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-outline-primary btn-sm" data-toggle="dropdown" type="button">{{trans('doctors.Processes')}}<i class="fas fa-caret-down mr-1"></i></button>
+                                            <button aria-expanded="false" aria-haspopup="true" class="btn btn-outline-primary btn-sm" data-toggle="dropdown" type="button">{{trans('Dashboard/doctor_trans.operations')}}<i class="fas fa-caret-down mr-1"></i></button>
                                             <div class="dropdown-menu tx-13">
-                                                <a class="dropdown-item" href="{{route('Doctors.edit',$doctor->id)}}"><i style="color: #0ba360" class="text-success ti-user"></i>&nbsp;&nbsp;تعديل البيانات</a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_password{{$doctor->id}}"><i   class="text-primary ti-key"></i>&nbsp;&nbsp;تغير كلمة المرور</a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_status{{$doctor->id}}"><i   class="text-warning ti-back-right"></i>&nbsp;&nbsp;تغير الحالة</a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete{{$doctor->id}}"><i   class="text-danger  ti-trash"></i>&nbsp;&nbsp;حذف البيانات</a>
+                                                <a class="dropdown-item" href="{{route('Doctors.edit',$doctor->id)}}"><i style="color: #0ba360" class="text-success ti-user"></i>&nbsp;&nbsp;{{ trans('Dashboard/doctor_trans.update') }}</a>
+                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_password{{$doctor->id}}"><i   class="text-primary ti-key"></i>&nbsp;&nbsp; {{ trans('Dashboard/doctor_trans.passwoerd_change') }}</a>
+                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_status{{$doctor->id}}"><i   class="text-warning ti-back-right"></i>&nbsp;&nbsp; {{ trans('Dashboard/doctor_trans.status_change') }}</a>
+                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete{{$doctor->id}}"><i   class="text-danger  ti-trash"></i>&nbsp;&nbsp;{{ trans('Dashboard/doctor_trans.delete_doctor') }}</a>
                                             </div>
                                         @include('Dashboard.Doctors.delete')
                                     </td>
-
+                                    <td></td>
                                 </tr>
 
                             @empty
@@ -123,34 +119,5 @@
 <script src="{{URL::asset('Dashboard/js/table-data.js')}}"></script>
 <script src="{{ URL::asset('Dashboard/plugins/notify/js/notifit-custom.js')}}"></script>
 <script src="{{ URL::asset('Dashboard/plugins/notify/js/notifIt.js')}}"></script>
-<script>
-    $(function(){
-        jQuery("[name=select_all]").click( function(source){
-            checkboxes = jQuery("[name=delete_select]");
-            for(var i in checkboxes){
-                checkboxes[i].checked = source.target.checked;
-            }
-        });
-    })
-
-</script>
-
-<script>
-    $(function () {
-            $("#btn_delete_all").click(function () {
-                var selected = [];
-                $("#example input[name=delete_select]:checked").each(function () {
-                    selected.push(this.value);
-                });
-
-                if (selected.length > 0) {
-                    $('#delete_select').modal('show')
-                    $('input[id="delete_select_id"]').val(selected);
-                }
-            });
-        });
-</script>
-
-
 
 @endsection

@@ -19,6 +19,8 @@ return[
     'image' => 'image doctor',
     "confirm" => "confirm",
     'delete_doctor'=> 'delete doctor',
-    'delete_group'=> 'delete group check',
+    'status_change'=> 'status change',
+    'passwoerd_change'=> 'passwoerd change',
+    'update'=> 'update',
 
 ];

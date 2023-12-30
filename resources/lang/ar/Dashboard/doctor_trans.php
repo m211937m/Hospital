@@ -19,6 +19,8 @@ return[
     'image' => 'صورة الطبيب',
     "confirm" => "تأكيد",
     'delete_doctor'=> 'حذف الدكتور',
-    'delete_group'=> 'حذف المجموعة المحددة',
+    'status_change'=> 'تغير الحالة',
+    'passwoerd_change'=> 'تغير  كلمة المرور ',
+    'update'=> 'تعديل البيانات',
 ];
 
