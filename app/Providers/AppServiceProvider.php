@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Interfaces\Doctors\DoctorInterface;
 use App\Interfaces\Sections\SectionInterface;
+use App\Interfaces\Services\SingleServiceInterface;
 use App\Repositorys\Doctors\DoctorRepository;
 use App\Repositorys\Sections\SectionRepository;
+use App\Repositorys\Services\SingleServiceRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +28,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             DoctorInterface::class, // the interface
             DoctorRepository::class, // the implementation
+        );
+        //SingleService
+        $this->app->bind(
+            SingleServiceInterface::class, // the interface
+            SingleServiceRepository::class, // the implementation
         );
     }
 

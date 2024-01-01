@@ -16,11 +16,17 @@ return[
     'add' => 'أضافة طبيب',
     'operations' => 'العمليات',
     'password' => 'كلمة المرور',
+    'password_update' => 'تعديل كلمة المرور',
+    'password_new' => 'كلمة المرور الجديدة',
+    'password_confirm' => 'تأكيد كلمة المرور',
     'image' => 'صورة الطبيب',
     "confirm" => "تأكيد",
+    "close" => "الغاء",
     'delete_doctor'=> 'حذف الدكتور',
     'status_change'=> 'تغير الحالة',
     'passwoerd_change'=> 'تغير  كلمة المرور ',
     'update'=> 'تعديل البيانات',
+    'count'=> 'عدد الأطباء',
+    'back'=> 'رجوع ',
 ];
 

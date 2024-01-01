@@ -1,5 +1,5 @@
 @extends('Dashboard.layouts.master')
-@section('title',trans('Dashboard/doctor_trans.doctor '))
+@section('title',$section->name)
 @section('css')
 <link href="{{URL::asset('Dashboard/plugins/datatable/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
 <link href="{{URL::asset('Dashboard/plugins/datatable/css/buttons.bootstrap4.min.css')}}" rel="stylesheet">
@@ -14,7 +14,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">{{ trans('Dashboard/doctor_trans.doctor ') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('Dashboard/doctor_trans.view_all ') }}</span>
+							<h4 class="content-title mb-0 my-auto">{{ $section->name }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('Dashboard/doctor_trans.doctor ') }}</span>
 						</div>
 					</div>
 				</div>
@@ -28,20 +28,21 @@
     <div class="col-xl-12">
         <div class="card">
             <div class="card-header pb-0">
-                  <a href="{{ route('Doctors.create') }}" class="btn btn-primary">{{ trans('Dashboard/doctor_trans.add') }}</a>
                 <div class="card-body">
+                        <a class="btn btn-info w-25 m-1" href="{{ route('Sections.index') }}"><b>{{ trans('Dashboard/doctor_trans.back') }}</b></a><br>
+                        <div class="alert alert-info w-100 text-center font-bold ">
+                            <b>{{ trans('Dashboard/doctor_trans.count') }} {{ $doctors->count() }}</b>
+                        </div>
                     <div class="table-responsive">
                         <table class="table text-md-nowrap" id="example2">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{ trans("Dashboard/doctor_trans.image")  }}</th>
                                     <th>{{ trans("Dashboard/doctor_trans.name")  }}</th>
                                     <th>{{ trans("Dashboard/doctor_trans.email")  }}</th>
                                     <th>{{ trans("Dashboard/doctor_trans.section_name") }}</th>
                                     <th>{{ trans("Dashboard/doctor_trans.phone") }}</th>
                                     <th>{{ trans("Dashboard/doctor_trans.appointments") }}</th>
-                                    <th>{{ trans("Dashboard/doctor_trans.price") }}</th>
                                     <th>{{ trans("Dashboard/doctor_trans.status") }}</th>
                                     <th>{{ trans("Dashboard/doctor_trans.created_at") }}</th>
                                     <th>{{ trans("Dashboard/doctor_trans.operations") }}</th>
@@ -52,16 +53,6 @@
                             @forelse ($doctors as $doctor)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>
-                                        @if($doctor->image)
-                                        <img src="{{Url::asset('Dashboard/img/doctor/'.$doctor->image->filename)}}"
-                                             height="50px" width="50px" alt="">
-
-                                        @else
-                                            <img src="{{Url::asset('Dashboard/img/doctor/defult.jpg')}}" height="50px"
-                                                 width="50px" alt="">
-                                        @endif
-                                    </td>
                                     <td>{{ $doctor->name }}</td>
                                     <td>{{ $doctor->email }}</td>
                                     <td>{{ $doctor->section->name }}</td>
@@ -71,7 +62,6 @@
                                             {{ $appointments->name }}
                                         @endforeach
                                     </td>
-                                    <td>{{ $doctor->price }}</td>
                                     <td>
                                         <div class="dot-label bg-{{ $doctor->status == 1 ? 'success' : 'danger'}} ml-1"></div>
                                         {{ $doctor->status == 1 ? trans('Dashboard/doctor_trans.enable') : trans('Dashboard/doctor_trans.notenable')}}

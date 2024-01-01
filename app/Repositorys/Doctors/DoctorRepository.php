@@ -19,7 +19,7 @@ class DoctorRepository implements DoctorInterface
     use UploadTrait;
     public function index()
     {
-        $doctors = Doctor::all();
+        $doctors = Doctor::with('doctorappointments')->get();
         return view("Dashboard.Doctors.index",compact("doctors"));
     }
     public function create()
@@ -42,11 +42,12 @@ class DoctorRepository implements DoctorInterface
             $doctors->status = 1;
             $doctors->save();
 
-            // store trans
+            // store trans doctor
             $doctors->name = $request->name;
             $doctors->save();
 
-            //upload image
+            $doctors->doctorappointments()->attach($request->appointments);
+            //save image
             $this->verifyAndStoreImage($request,'photo','doctor','upload_image',$doctors->id,'App\Models\Doctor' );
 
             DB::commit();
@@ -64,7 +65,10 @@ class DoctorRepository implements DoctorInterface
     }
 
     public function destroy($request){
+
+        //delete one doctor
         if($request->page_id == 1){
+            //found image to delete
             if ($request->filename)
             {
                 $this->delete_attachment('upload_image','doctor/'.$request->filename,$request->id);
@@ -81,7 +85,7 @@ class DoctorRepository implements DoctorInterface
             $delete_select_id = explode(',',$request->delete_select_id);
 
             foreach($delete_select_id as $id_doctor){
-                $doctor = Doctor::findorfall($id_doctor);
+                $doctor = Doctor::findorfail($id_doctor);
                 if($doctor->image){
                     $this->delete_attachment('upload_image','doctor/'.$doctor->image->filename,$id_doctor);
                 }
@@ -89,6 +93,84 @@ class DoctorRepository implements DoctorInterface
             }
             session()->flash("delete");
             return redirect()->route('Doctors.index');
+        }
+    }
+
+    public function edit($id){
+
+        $sections = Section::all();
+        $appointments = Appointment::all();
+        $doctor = Doctor::findorfail($id);
+        return view('Dashboard.Doctors.edit',compact(['sections','appointments','doctor']));
+    }
+
+    public function update($request){
+
+        DB::beginTransaction();
+
+        try{
+
+            $doctors =  Doctor::findorfail($request->id);
+            $doctors->email = $request->email;
+            $doctors->section_id = $request->section_id;
+            $doctors->phone = $request->phone;
+            $doctors->save();
+
+            // store trans
+            $doctors->name = $request->name;
+            $doctors->save();
+
+            $doctors->doctorappointments()->sync($request->appointments);
+            //upload image
+            if($request->has('photo')){
+
+                if($doctors->image){
+                    $old = $doctors->image->filename;
+                    $this->delete_attachment('upload_image','doctor/'.$old,$request->id);
+                }
+                $this->verifyAndStoreImage($request,'photo','doctor','upload_image',$request->id,'App\Models\Doctor' );
+            }
+
+            DB::commit();
+            session()->flash("edit");
+            return redirect()->route('Doctors.index');
+
+        }
+        catch(Exception $e){
+
+            DB::rollBack();
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+
+    }
+
+    public function update_password($request){
+        try{
+
+            $doctor = Doctor::findorfail($request->id);
+            $doctor->password = Hash::make($request->password);
+            $doctor->save();
+            session()->flash('edit');
+            return redirect()->route('Doctors.index');
+        }
+
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function status($request){
+        try{
+
+            $doctor = Doctor::findorfail($request->id);
+            $doctor->status = $request->status;
+            $doctor->save();
+            session()->flash('edit');
+            return redirect()->route('Doctors.index');
+        }
+
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 }

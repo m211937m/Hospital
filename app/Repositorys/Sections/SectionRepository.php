@@ -18,6 +18,7 @@ class SectionRepository implements SectionInterface
     {
         Section::create([
             'name' => $request->name,
+            'description' => $request->description,
         ]);
         session()->flash("add");
         return redirect()->route('Sections.index');
@@ -27,10 +28,17 @@ class SectionRepository implements SectionInterface
         $section=Section::findOrFail($request->id);
         $section->update([
             'name' => $request->name,
+            'description' => $request->description,
         ]);
             session()->flash("edit");
             return redirect()->route('Sections.index');
 
+    }
+    public function show($id)
+    {
+        $doctors = Section::findorfail($id)->doctors;
+        $section = Section::findorfail($id);
+        return view('Dashboard.Sections.show',compact('doctors','section'));
     }
     public function destroy($request){
         $section=Section::findOrFail($request->id)->delete();

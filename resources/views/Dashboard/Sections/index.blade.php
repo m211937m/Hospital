@@ -43,14 +43,14 @@
                                     <th class="w-25 border-bottom-0">{{ trans("Dashboard/sections_trans.description")  }}</th>
                                     <th class="w-25 border-bottom-0">{{ trans("Dashboard/sections_trans.created_add") }}</th>
                                     <th class="w-25 border-bottom-0">{{ trans("Dashboard/sections_trans.operations") }}</th>
-                                    {{-- <th class="wd-0p  border-bottom-0"></th> --}}
+                                    <th class="wd-0p  border-bottom-0"></th>
                                 </tr>
                             </thead>
                             <tbody>
                             @forelse ($sections as $section)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $section->name }}</td>
+                                    <td><a  href="{{ route('Sections.show',$section->id) }}">{{ $section->name }}</a></td>
                                     <td>{{ \Str::limit($section->description ,50) }}</td>
                                     <td>{{ $section->created_at->diffForHumans() }}</td>
                                     <td>
@@ -59,7 +59,7 @@
                                         <a class="btn btn-sm btn-danger"data-effect="effect-scale"data-toggle="modal" href="#delete{{ $section->id }}"><i class="las la-trash"></i></a>
                                         @include('Dashboard.Sections.delete')
                                     </td>
-                                    {{-- <td></td> --}}
+                                    <td></td>
                                 </tr>
 
                             @empty

@@ -5,10 +5,13 @@
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
-     <div class="modal-body">
-        <form action="{{ route('Sections.store') }}" method="post"autocomplete="off">
+    <form action="{{ route('Sections.store') }}" method="post"autocomplete="off">
         @csrf
-            <input type="text" class="form-control" name="name" >
+        <div class="modal-body">
+            <div class="col">
+                <div class="row"><label>{{ trans("Dashboard/sections_trans.name_section")}}</label><input type="text" class="form-control" name="name" ></div>
+                <div class="row"><label>{{ trans("Dashboard/sections_trans.description")}}</label><input type="text" class="form-control" name="description"></div>
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans("Dashboard/sections_trans.exit") }}</button>
