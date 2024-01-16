@@ -11,4 +11,8 @@ return [
     "insurance_companies" => "insurance companies",
     "ambulance" => "ambulance",
     "ambulance_calls" => "ambulance calls",
+    "Patient" => "Patient",
+    "Patient_list" => "Patient list",
+    "invoice" => "invoice",
+    "single_servise_invoice" => "single servise invoice",
 ];

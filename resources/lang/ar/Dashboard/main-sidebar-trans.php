@@ -11,6 +11,10 @@ return [
     "insurance_companies" => "شركات التأمين",
     "ambulance" => "الاسعاف",
     "ambulance_calls" => "مكالمات الاسعاف",
+    "Patient" => "المرضى",
+    "Patient_list" => "قائمة المرضى",
+    "invoice" => "فاتورة",
+    "single_servise_invoice" => "فاتورة الخدمات المفردة",
 
 
 ];

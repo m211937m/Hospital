@@ -19,7 +19,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans("Dashboard/sections_trans.exit") }}</button>
-            <button type="submit" class="btn btn-danger">{{ trans("Dashboard/sections_trans.confirm") }}</button>
+            <button type="submit" class="btn btn-danger">{{ trans("Dashboard/service_trans.delete") }}</button>
         </div>
         </form>
     </div>
