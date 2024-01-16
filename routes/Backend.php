@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\DoctorController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\InsuranceController;
 use App\Http\Controllers\Dashboard\PatientController;
+use App\Http\Controllers\Dashboard\RecipAccountController;
 use App\Http\Controllers\Dashboard\SingleServiceController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +55,8 @@ Route::group(
             Route::resource('Ambulance', AmbulanceController::class);
             //Patient
             Route::resource('Patients', PatientController::class);
+            //
+            Route::resource('Receipt', RecipAccountController::class);
 
         });
         require __DIR__.'/auth.php';

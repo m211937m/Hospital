@@ -8,6 +8,7 @@
 <link href="{{URL::asset('Dashboard/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css')}}" rel="stylesheet">
 @endsection
 @section('content')
+@include('Dashboard.messages_alert')
 		<div class="container-fluid">
 			<div class="row no-gutter">
 				<!-- The image half -->

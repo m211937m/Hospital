@@ -15,4 +15,6 @@ return [
     "Patient_list" => "Patient list",
     "invoice" => "invoice",
     "single_servise_invoice" => "single servise invoice",
+    "Accounts" => "Accounts",
+    "Bond_Catch" => "Bond Catch",
 ];

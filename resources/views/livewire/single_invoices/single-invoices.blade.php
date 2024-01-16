@@ -8,11 +8,11 @@
     @endif --}}
 
     @if ($InvoiceSaved)
-        <div class="alert alert-info">تم حفظ البيانات بنجاح.</div>
+        <div class="alert alert-info">{{ trans('Dashboard/messages.add') }}</div>
     @endif
 
     @if ($InvoiceUpdated)
-        <div class="alert alert-info">تم تعديل البيانات بنجاح.</div>
+        <div class="alert alert-info">{{ trans('Dashboard/messages.edit') }}</div>
     @endif
 
     @if($show_table)
@@ -25,9 +25,9 @@
                 @csrf
                 <div class="row">
                     <div class="col">
-                        <label>اسم المريض</label>
+                        <label>{{ trans('Dashboard/single_invoice.patient_name') }}</label>
                         <select wire:model="patient_id" class="form-control" required>
-                            <option value=""  >-- اختار من القائمة --</option>
+                            <option value=""  >-- {{ trans('Dashboard/single_invoice.select_from_the_list') }} --</option>
                             @foreach($Patients as $Patient)
                                 <option value="{{$Patient->id}}">{{$Patient->name}}</option>
                             @endforeach
@@ -36,9 +36,9 @@
 
 
                     <div class="col">
-                        <label>اسم الدكتور</label>
+                        <label>{{ trans('Dashboard/single_invoice.doctor_name') }}</label>
                         <select wire:model="doctor_id"  wire:change="get_section" class="form-control"  id="exampleFormControlSelect1" required>
-                            <option value="" >-- اختار من القائمة --</option>
+                            <option value="" >-- {{ trans('Dashboard/single_invoice.select_from_the_list') }}  --</option>
                             @foreach($Doctors as $Doctor)
                                 <option value="{{$Doctor->id}}">{{$Doctor->name}}</option>
                             @endforeach
@@ -47,15 +47,15 @@
 
 
                     <div class="col">
-                        <label>القسم</label>
+                        <label>{{ trans('Dashboard/doctor_trans.section_name') }} </label>
                         <input wire:model="section_id" type="text" class="form-control" readonly >
                     </div>
 
                     <div class="col">
-                        <label>نوع الفاتورة</label>
+                        <label>{{ trans('Dashboard/single_invoice.invoice_type') }}</label>
                         <select wire:model="type" class="form-control" {{$updateMode == true ? 'disabled':''}}>
-                            <option value="" >-- اختار من القائمة --</option>
-                            <option value="1">نقدي</option>
+                            <option value="" >-- {{ trans('Dashboard/single_invoice.select_from_the_list') }}  --</option>
+                            <option value="1">{{ trans('Dashboard/single_invoice.cash') }} </option>
                             <option value="2">اجل</option>
                         </select>
                     </div>
@@ -77,12 +77,12 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>اسم الخدمة</th>
-                                            <th>سعر الخدمة</th>
-                                            <th>قيمة الخصم</th>
-                                            <th>نسبة الضريبة</th>
-                                            <th>قيمة الضريبة</th>
-                                            <th>الاجمالي مع الضريبة</th>
+                                            <th>{{ trans('Dashboard/group_service_trans.name_service') }} </th>
+                                            <th>{{ trans('Dashboard/doctor_trans.price') }} </th>
+                                            <th>{{ trans('Dashboard/group_service_trans.discount_value') }} </th>
+                                            <th>{{ trans('Dashboard/group_service_trans.tax_ratoi') }}</th>
+                                            <th>{{ trans('Dashboard/single_invoice.tax_value') }}</th>
+                                            <th> {{ trans('Dashboard/group_service_trans.total_with_tax') }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -90,7 +90,7 @@
                                             <th scope="row">1</th>
                                             <td>
                                                 <select wire:model="Service_id" class="form-control" wire:change="get_price" id="exampleFormControlSelect1">
-                                                    <option value="">-- اختار الخدمة --</option>
+                                                    <option value="">-- {{ trans('Dashboard/single_invoice.select_from_the_list') }}  --</option>
                                                     @foreach($Services as $Service)
                                                         <option value="{{$Service->id}}">{{$Service->name}}</option>
                                                     @endforeach
@@ -110,7 +110,7 @@
                     </div>
                 </div>
 
-                <input class="btn btn-outline-primary lg" type="submit" value="تاكيد البيانات">
+                <input class="btn btn-outline-primary lg" type="submit" value="{{ trans('Dashboard/doctor_trans.confirm') }}">
             </form>
 
     @endif

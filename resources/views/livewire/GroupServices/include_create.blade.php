@@ -22,6 +22,7 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
+@include('Dashboard.messages_alert')
 
     <div class="row row-sm">
         <div class="col-xl-12">

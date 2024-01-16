@@ -10,8 +10,14 @@ class InsuranceRepository implements InsuranceInterface
 {
     public function index()
     {
-        $insurances = Insurance::all();
-        return view("Dashboard.insurance.index",compact("insurances"));
+        try{
+
+            $insurances = Insurance::all();
+            return view("Dashboard.insurance.index",compact("insurances"));
+        }
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     public function create(){
@@ -44,9 +50,14 @@ class InsuranceRepository implements InsuranceInterface
     }
 
     public function edit($id){
+        try{
+            $insurances =Insurance::findorfail($id);
+            return view('Dashboard.insurance.edit',compact('insurances'));
 
-        $insurances =Insurance::findorfail($id);
-        return view('Dashboard.insurance.edit',compact('insurances'));
+        }
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     public function update($request){
@@ -80,9 +91,13 @@ class InsuranceRepository implements InsuranceInterface
     }
 
     public function destroy($request){
-        $section= Insurance::findorFail($request->id)->delete();
-            session()->flash("delete");
-            return redirect()->route('insurance.index');
-
+        try{
+            Insurance::findorFail($request->id)->delete();
+                session()->flash("delete");
+                return redirect()->route('insurance.index');
+        }
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 }

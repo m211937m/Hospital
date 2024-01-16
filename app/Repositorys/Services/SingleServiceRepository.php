@@ -11,8 +11,14 @@ class SingleServiceRepository implements SingleServiceInterface
 {
     public function index()
     {
-        $services = Service::all();
-        return view('Dashboard.Services.Single_Service.index',compact('services'));
+        try{
+
+            $services = Service::all();
+            return view('Dashboard.Services.Single_Service.index',compact('services'));
+        }
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
 
     }
     public function store($request)

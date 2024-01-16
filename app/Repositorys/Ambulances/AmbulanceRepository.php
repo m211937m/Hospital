@@ -10,13 +10,21 @@ class AmbulanceRepository implements AmbulanceInterface
 {
     public function index(){
 
+        try{
         $ambulances = Ambulance::all();
         return view("Dashboard.Ambulances.index",compact("ambulances"));
+        }
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     public function create(){
-
-        return view('Dashboard.Ambulances.create');
+        try
+       { return view('Dashboard.Ambulances.create');}
+       catch(Exception $e){
+        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+    }
     }
     public function store($request)
     {
@@ -40,9 +48,13 @@ class AmbulanceRepository implements AmbulanceInterface
     }
 
     public function edit($id){
-
+        try{
         $ambulance = Ambulance::findorfail($id);
         return view('Dashboard.Ambulances.edit',compact('ambulance'));
+        }
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     public function update($request){
@@ -71,9 +83,13 @@ class AmbulanceRepository implements AmbulanceInterface
     }
 
     public function destroy($request){
-        Ambulance::findorfail($request->id)->delete();
-        session()->flash("delete");
-        return redirect()->route('Ambulance.index');
-
+        try{
+            Ambulance::findorfail($request->id)->delete();
+            session()->flash("delete");
+            return redirect()->route('Ambulance.index');
+        }
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 }

@@ -19,14 +19,25 @@ class DoctorRepository implements DoctorInterface
     use UploadTrait;
     public function index()
     {
-        $doctors = Doctor::with('doctorappointments')->get();
-        return view("Dashboard.Doctors.index",compact("doctors"));
+        try{
+            $doctors = Doctor::with('doctorappointments')->get();
+            return view("Dashboard.Doctors.index",compact("doctors"));
+        }
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
     public function create()
     {
-        $sections = Section::all();
-        $appointments = Appointment::all();
-        return view('Dashboard.Doctors.add',compact(['sections','appointments']));
+        try{
+
+            $sections = Section::all();
+            $appointments = Appointment::all();
+            return view('Dashboard.Doctors.add',compact(['sections','appointments']));
+        }
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
     public function store($request){
 
@@ -65,34 +76,39 @@ class DoctorRepository implements DoctorInterface
     }
 
     public function destroy($request){
+        try{
 
-        //delete one doctor
-        if($request->page_id == 1){
-            //found image to delete
-            if ($request->filename)
-            {
-                $this->delete_attachment('upload_image','doctor/'.$request->filename,$request->id);
-            }
-            Doctor::destroy($request->id);
-            session()->flash("delete");
-            return redirect()->route('Doctors.index');
-
-        }
-
-        //delete mane doctor
-        else{
-
-            $delete_select_id = explode(',',$request->delete_select_id);
-
-            foreach($delete_select_id as $id_doctor){
-                $doctor = Doctor::findorfail($id_doctor);
-                if($doctor->image){
-                    $this->delete_attachment('upload_image','doctor/'.$doctor->image->filename,$id_doctor);
+            //delete one doctor
+            if($request->page_id == 1){
+                //found image to delete
+                if ($request->filename)
+                {
+                    $this->delete_attachment('upload_image','doctor/'.$request->filename,$request->id);
                 }
                 Doctor::destroy($request->id);
+                session()->flash("delete");
+                return redirect()->route('Doctors.index');
+
             }
-            session()->flash("delete");
-            return redirect()->route('Doctors.index');
+
+            //delete mane doctor
+            else{
+
+                $delete_select_id = explode(',',$request->delete_select_id);
+
+                foreach($delete_select_id as $id_doctor){
+                    $doctor = Doctor::findorfail($id_doctor);
+                    if($doctor->image){
+                        $this->delete_attachment('upload_image','doctor/'.$doctor->image->filename,$id_doctor);
+                    }
+                    Doctor::destroy($request->id);
+                }
+                session()->flash("delete");
+                return redirect()->route('Doctors.index');
+            }
+        }
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 

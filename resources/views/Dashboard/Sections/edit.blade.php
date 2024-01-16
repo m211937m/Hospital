@@ -11,7 +11,6 @@
             {{ csrf_field() }}
         @csrf
             <input type="hidden" class="form-control" name="id" value="{{ $section->id }}" >
-            <input type="text" class="form-control" name="name"  >
             <div class="col">
                 <div class="row">
                     <label>{{ trans("Dashboard/sections_trans.name_section")}}</label><input type="text" class="form-control" name="name" value="{{ $section->name }}">

@@ -20,8 +20,14 @@ class PatientRepository implements PatientInterface
     }
 
     public function create(){
+        try{
+            return view('Dashboard.Patients.create');
 
-        return view('Dashboard.Patients.create');
+        }
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+
     }
     public function store($request)
     {
@@ -52,8 +58,14 @@ class PatientRepository implements PatientInterface
 
     public function edit($id){
 
-        $Patient =Patient::findorfail($id);
-        return view('Dashboard.Patients.edit',compact('Patient'));
+        try{
+
+            $Patient =Patient::findorfail($id);
+            return view('Dashboard.Patients.edit',compact('Patient'));
+        }
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     public function update($request){

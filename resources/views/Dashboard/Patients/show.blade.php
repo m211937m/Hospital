@@ -18,6 +18,7 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
+@include('Dashboard.messages_alert')
     <!-- row opened -->
     <div class="row row-sm">
         <div class="col-lg-12 col-md-12">
