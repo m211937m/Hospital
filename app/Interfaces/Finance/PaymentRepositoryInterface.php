@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Interfaces\Patients;
+namespace App\Interfaces\Finance;
 
-interface PatientInterface
+interface PaymentRepositoryInterface
 {
     public function index();
     public function create();

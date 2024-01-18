@@ -4,6 +4,9 @@ namespace App\Repositorys\Patients;
 
 use App\Interfaces\Patients\PatientInterface;
 use App\Models\Patient;
+use App\Models\Patient_account;
+use App\Models\RecipAccount;
+use App\Models\single_invoices;
 use Exception;
 
 class PatientRepository implements PatientInterface
@@ -60,8 +63,26 @@ class PatientRepository implements PatientInterface
 
         try{
 
-            $Patient =Patient::findorfail($id);
+            $Patient = Patient::findorfail($id);
             return view('Dashboard.Patients.edit',compact('Patient'));
+        }
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+    public function show($id){
+
+        try{
+
+            $Patient = Patient::findorfail($id);
+            $invoices = single_invoices::where('patient_id',$id)->get();
+            $receipt_accounts = RecipAccount::where('patient_id',$id)->get();
+            $Patient_accounts = Patient_account::orWhereNotNull('single_invoice_id')
+            ->orWhereNotNull('receip_id')
+            ->orWhereNotNull('payment_id')
+            ->where('patient_id',$id)
+            ->get();
+            return view('Dashboard.Patients.show',compact(['Patient','invoices','receipt_accounts','Patient_accounts']));
         }
         catch(Exception $e){
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);

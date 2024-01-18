@@ -5,5 +5,5 @@ return [
     'update_bond' => 'تعديل سند ',
     'delete_bond' => 'حذف سند ',
     'Amount' => 'المبلغ',
-    '' => '',
+    'Exchange_bond' => 'سند صرف',
 ];

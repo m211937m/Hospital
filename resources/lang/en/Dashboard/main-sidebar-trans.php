@@ -17,4 +17,5 @@ return [
     "single_servise_invoice" => "single servise invoice",
     "Accounts" => "Accounts",
     "Bond_Catch" => "Bond Catch",
+    "Exchange_Bond" => "Exchange Bond",
 ];

@@ -64,7 +64,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5">{{ trans('Doctors.submit') }}</button>
+                            <button type="submit" class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5">{{ trans('Dashboard/sections_trans.confirm') }}</button>
                         </div>
                     </form>
                 </div>

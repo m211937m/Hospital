@@ -17,6 +17,7 @@ return [
     "single_servise_invoice" => "فاتورة الخدمات المفردة",
     "Accounts" => "الحسابات",
     "Bond_Catch" => "سند قبض",
+    "Exchange_Bond" => "سند صرف",
 
 
 ];

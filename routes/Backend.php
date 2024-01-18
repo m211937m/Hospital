@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\InsuranceController;
 use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\RecipAccountController;
 use App\Http\Controllers\Dashboard\SingleServiceController;
+use App\Http\Controllers\Dashboard\PaymentAccountsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -49,14 +50,18 @@ Route::group(
             Route::view('Add_GroupServise','livewire.GroupServices.include_create')->name('Add_GroupServise');
             //single_invoices
             Route::view('single_invoices','livewire.single_invoices.index')->name('single_invoices');
+
+            Route::view('print_single_invoices','livewire.single_invoices.print')->name('print_single_invoices');
             //insurance
             Route::resource('insurance', InsuranceController::class);
             //Ambulances
             Route::resource('Ambulance', AmbulanceController::class);
             //Patient
             Route::resource('Patients', PatientController::class);
-            //
+            //Receipt
             Route::resource('Receipt', RecipAccountController::class);
+            //Payment
+            Route::resource('Payment', PaymentAccountsController::class);
 
         });
         require __DIR__.'/auth.php';

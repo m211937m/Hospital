@@ -2,22 +2,23 @@
 
 namespace App\Repositorys\Finance;
 
-use App\Interfaces\Finance\ReceiptRepositoryInterface;
+use App\Interfaces\Finance\PaymentRepositoryInterface;
 use App\Models\FondAccount;
 use App\Models\Patient;
 use App\Models\Patient_account;
+use App\Models\PaymentAccounts;
 use App\Models\RecipAccount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ReceiptRepositoryRepository implements ReceiptRepositoryInterface
+class PaymentRepository implements PaymentRepositoryInterface
 {
     public function index()
     {
         try{
 
-            $receipts = RecipAccount::all();
-            return view('Dashboard.Receipt.index',compact('receipts'));
+            $payments = PaymentAccounts::all();
+            return view('Dashboard.Payment.index',compact('payments'));
         }
         catch(\Exception $e){
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -27,7 +28,7 @@ class ReceiptRepositoryRepository implements ReceiptRepositoryInterface
     {
         try{
             $Patients = Patient::all();
-            return view('Dashboard.Receipt.add',compact('Patients'));
+            return view('Dashboard.Payment.add',compact('Patients'));
 
         }
         catch(\Exception $e){
@@ -39,34 +40,34 @@ class ReceiptRepositoryRepository implements ReceiptRepositoryInterface
         DB::beginTransaction();
         try{
 
-            //receipt_accounts save
-            $receipt_accounts = new RecipAccount();
-            $receipt_accounts->date = date('Y-m-d');
-            $receipt_accounts->patient_id = $request->patient_id;
-            $receipt_accounts->Debit = $request->Debit;
-            $receipt_accounts->description = $request->description;
-            $receipt_accounts->save();
+            //PaymentAccounts save
+            $PaymentAccounts = new PaymentAccounts();
+            $PaymentAccounts->date = date('Y-m-d');
+            $PaymentAccounts->patient_id = $request->patient_id;
+            $PaymentAccounts->amount = $request->credit;
+            $PaymentAccounts->description = $request->description;
+            $PaymentAccounts->save();
 
             //FondAccount save
             $fund_accounts = new FondAccount();
             $fund_accounts->date = date('Y-m-d');
-            $fund_accounts->receip_id = $receipt_accounts->id;
-            $fund_accounts->Dabit = $request->Debit;
-            $fund_accounts->credit = 0.0;
+            $fund_accounts->payment_id = $PaymentAccounts->id;
+            $fund_accounts->credit = $request->credit;
+            $fund_accounts->Dabit = 0.00;
             $fund_accounts->save();
 
             //patient_account save
             $patient_accounts = new Patient_account();
             $patient_accounts->date = date('Y-m-d');
             $patient_accounts->patient_id = $request->patient_id;
-            $patient_accounts->receip_id = $receipt_accounts->id;
-            $patient_accounts->Dabit = 0.00;
-            $patient_accounts->credit = $request->Debit;
+            $patient_accounts->payment_id = $PaymentAccounts->id;
+            $patient_accounts->Dabit = $request->credit;
+            $patient_accounts->credit =0.0;
             $patient_accounts->save();
 
             DB::commit();
             session()->flash('add');
-            return redirect()->route('Receipt.index');
+            return redirect()->route('Payment.index');
         }
         catch(\Exception $e){
             DB::rollBack();
@@ -76,63 +77,65 @@ class ReceiptRepositoryRepository implements ReceiptRepositoryInterface
 
     }
 
-    public function edit($id)
+    public function show($id)
     {
         try{
 
-            $receipt_accounts = RecipAccount::findorfail($id);
-            $Patients = Patient::all();
-            return view('Dashboard.Receipt.edit', compact(['receipt_accounts','Patients']) );
+            $payment_account = PaymentAccounts::findorfail($id);
+            return view('Dashboard.Payment.print',compact(['payment_account']) );
         }
         catch(\Exception $e){
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-    public function show($id)
+
+    public function edit($id)
     {
         try{
 
-            $receipt = RecipAccount::findorfail($id);
-            // $Patients = Patient::all();
-            return view('Dashboard.Receipt.print', compact(['receipt']) );
+            $payment_accounts = PaymentAccounts::findorfail($id);
+            $Patients = Patient::all();
+            return view('Dashboard.Payment.edit',compact(['payment_accounts','Patients']) );
         }
         catch(\Exception $e){
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
+
+
     }
     public function update($request){
 
         DB::beginTransaction();
         try{
 
-            //receipt_accounts save
-            $receipt_accounts = RecipAccount::findorfail($request->id);
-            $receipt_accounts->date = date('Y-m-d');
-            $receipt_accounts->patient_id = $request->patient_id;
-            $receipt_accounts->Debit = $request->Debit;
-            $receipt_accounts->description = $request->description;
-            $receipt_accounts->save();
+            //payment_accounts save
+            $PaymentAccounts = PaymentAccounts::findorfail($request->id);
+            $PaymentAccounts->date = date('Y-m-d');
+            $PaymentAccounts->patient_id = $request->patient_id;
+            $PaymentAccounts->amount = $request->credit;
+            $PaymentAccounts->description = $request->description;
+            $PaymentAccounts->save();
 
             //FondAccount save
-            $fund_accounts = FondAccount::where('receip_id',$request->id)->first();
+            $fund_accounts = FondAccount::where('payment_id',$request->id)->first();
             $fund_accounts->date = date('Y-m-d');
-            $fund_accounts->receip_id = $receipt_accounts->id;
-            $fund_accounts->Dabit = $request->Debit;
-            $fund_accounts->credit = 0.0;
+            $fund_accounts->payment_id = $PaymentAccounts->id;
+            $fund_accounts->credit = $request->credit;
+            $fund_accounts->Dabit = 0.00;
             $fund_accounts->save();
 
             //patient_account save
-            $patient_accounts = Patient_account::where('receip_id', $request->id)->first();
+            $patient_accounts = Patient_account::where('payment_id', $request->id)->first();
             $patient_accounts->date = date('Y-m-d');
             $patient_accounts->patient_id = $request->patient_id;
-            $patient_accounts->receip_id = $receipt_accounts->id;
-            $patient_accounts->Dabit = 0.00;
-            $patient_accounts->credit = $request->Debit;
+            $patient_accounts->payment_id = $PaymentAccounts->id;
+            $patient_accounts->Dabit = $request->credit;
+            $patient_accounts->credit =0.0;
             $patient_accounts->save();
 
             DB::commit();
             session()->flash('edit');
-            return redirect()->route('Receipt.index');
+            return redirect()->route('Payment.index');
         }
         catch(\Exception $e){
             DB::rollBack();
@@ -146,9 +149,9 @@ class ReceiptRepositoryRepository implements ReceiptRepositoryInterface
     public function destroy($request){
 
         try{
-            RecipAccount::destroy($request->id);
+            PaymentAccounts::destroy($request->id);
             session()->flash('delete');
-            return redirect()->route('Receipt.index');
+            return redirect()->route('Payment.index');
         }
 
         catch(\Exception $e){

@@ -31,7 +31,7 @@ class RecipAccountController extends Controller
 
     public function show($id)
     {
-
+        return $this->RecipAccount->show($id);
     }
 
     public function edit($id)

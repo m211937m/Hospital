@@ -3,15 +3,15 @@
 
 @endsection
 @section('title')
-    معلومات المريض
+     {{ trans('Dashboard/Patient_trans.Patient_information') }}
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Pages</h4><span
-                    class="text-muted mt-1 tx-13 mr-2 mb-0">/ Empty</span>
+                <h4 class="content-title mb-0 my-auto">{{ trans('Dashboard/Patient_trans.Patient') }}</h4><span
+                    class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('Dashboard/Patient_trans.Patient_information') }}</span>
             </div>
         </div>
     </div>
@@ -31,17 +31,14 @@
                                     <div class="tabs-menu1">
                                         <!-- Tabs -->
                                         <ul class="nav panel-tabs main-nav-line">
-                                            <li class="nav-item"><a href="#tab1" class="nav-link active"
-                                                                    data-toggle="tab">معلومات المريض</a></li>
-                                            <li class="nav-item"><a href="#tab2" class="nav-link" data-toggle="tab">الفواتير</a>
+                                            <li class="nav-item"><a href="#tab1" class="nav-link active" data-toggle="tab">{{ trans('Dashboard/Patient_trans.Patient_information') }}</a></li>
+                                            <li class="nav-item"><a href="#tab2" class="nav-link" data-toggle="tab">{{ trans('Dashboard/main-sidebar-trans.invoice') }}</a>
                                             </li>
-                                            <li class="nav-item"><a href="#tab3" class="nav-link" data-toggle="tab">المدفوعات</a>
+                                            <li class="nav-item"><a href="#tab3" class="nav-link" data-toggle="tab">{{ trans('Dashboard/Patient_trans.payment') }}</a>
                                             </li>
-                                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">كشف
-                                                    حساب</a></li>
-                                            <li class="nav-item"><a href="#tab5" class="nav-link" data-toggle="tab">الاشعه</a>
-                                            </li>
-                                            <li class="nav-item"><a href="#tab6" class="nav-link" data-toggle="tab">المختبر</a>
+                                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">{{ trans('Dashboard/Patient_trans.Statement') }}</a></li>
+                                            <li class="nav-item"><a href="#tab5" class="nav-link" data-toggle="tab">{{ trans('Dashboard/Patient_trans.ٌRadiology') }}</a></li>
+                                            <li class="nav-item"><a href="#tab6" class="nav-link" data-toggle="tab">{{ trans('Dashboard/Patient_trans.Laboratory') }}</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -59,11 +56,11 @@
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>اسم المريض</th>
-                                                        <th>رقم الهاتف</th>
-                                                        <th>البريد الالكتورني</th>
-                                                        <th>تاريخ الميلاد</th>
-                                                        <th>النوع</th>
+                                                        <th>{{ trans('Dashboard/single_invoice.patient_name') }}</th>
+                                                        <th>{{ trans('Dashboard/doctor_trans.phone') }}</th>
+                                                        <th>{{ trans('Dashboard/validation.attributes.email') }}</th>
+                                                        <th>{{ trans('Dashboard/Patient_trans.Date_Birth') }}</th>
+                                                        <th>{{ trans('Dashboard/Patient_trans.Gender') }}</th>
                                                         <th>فصيلة الدم</th>
                                                     </tr>
                                                     </thead>
@@ -74,7 +71,7 @@
                                                         <td>{{$Patient->Phone}}</td>
                                                         <td>{{$Patient->email}}</td>
                                                         <td>{{$Patient->Date_Birth}}</td>
-                                                        <td>{{$Patient->Gender == 1 ? '`ذكر' :  'انثي'}}</td>
+                                                        <td>{{$Patient->Gender == 1 ? trans('Dashboard/Patient_trans.male') : trans('Dashboard/Patient_trans.female') }}</td>
                                                         <td>{{$Patient->Blood_Group}}</td>
                                                     </tr>
                                                     </tbody>
@@ -95,10 +92,10 @@
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>اسم الخدمه</th>
-                                                        <th>تاريخ الفاتوره</th>
-                                                        <th>الاجمالي مع الضريبه</th>
-                                                        <th>نوع الفاتوره</th>
+                                                        <th>{{ trans('Dashboard/group_service_trans.name_service') }}</th>
+                                                        <th>{{ trans('Dashboard/service_trans.created_at') }}</th>
+                                                        <th>{{ trans('Dashboard/group_service_trans.total_with_tax') }}</th>
+                                                        <th>{{ trans('Dashboard/single_invoice.invoice_type') }} </th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -106,15 +103,15 @@
                                                         <tr>
                                                             <td>{{$loop->iteration}}</td>
                                                             <td>{{$invoice->Service->name ?? $invoice->Group->name}}</td>
-                                                            <td>{{$invoice->invoice_date}}</td>
+                                                            <td>{{$invoice->date}}</td>
                                                             <td>{{$invoice->total_with_tax}}</td>
-                                                            <td>{{$invoice->type == 1 ? 'نقدي' : 'اجل'}}</td>
+                                                            <td>{{$invoice->type == 1 ? trans('Dashboard/single_invoice.cash') : 'اجل'}}</td>
                                                         </tr>
                                                         <br>
                                                     @endforeach
                                                     <tr>
                                                         <th colspan="4" scope="row" class="alert alert-success">
-                                                            الاجمالي
+                                                             {{  trans('Dashboard/group_service_trans.total') }}
                                                         </th>
                                                         <td class="alert alert-primary">{{ number_format( $invoices->sum('total_with_tax') , 2)}}</td>
                                                     </tr>
@@ -135,9 +132,9 @@
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>تاريخ الاضافه</th>
-                                                        <th>المبلغ</th>
-                                                        <th>البيان</th>
+                                                        <th>{{ trans('Dashboard/sections_trans.created_add') }} </th>
+                                                        <th>{{ trans('Dashboard/receipt.Amount') }}</th>
+                                                        <th>{{ trans('Dashboard/print.note') }}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -145,16 +142,15 @@
                                                         <tr>
                                                             <td>{{$loop->iteration}}</td>
                                                             <td>{{$receipt_account->date}}</td>
-                                                            <td>{{$receipt_account->amount}}</td>
+                                                            <td>{{$receipt_account->Debit}}</td>
                                                             <td>{{$receipt_account->description}}</td>
                                                         </tr>
                                                         <br>
                                                     @endforeach
                                                     <tr>
-                                                        <th scope="row" class="alert alert-success">الاجمالي
-                                                        </th>
+                                                        <th scope="row" class="alert alert-success">{{ trans('Dashboard/group_service_trans.total') }}</th>
                                                         <td colspan="4"
-                                                            class="alert alert-primary">{{ number_format( $receipt_accounts->sum('amount') , 2)}}</td>
+                                                            class="alert alert-primary">{{ number_format( $receipt_accounts->sum('Debit') , 2)}}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -171,11 +167,11 @@
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>تاريخ الاضافه</th>
-                                                        <th>الوصف</th>
-                                                        <th>مدبن</th>
-                                                        <th>دائن</th>
-                                                        <th>الرصيد النهائي</th>
+                                                        <th>{{ trans('Dashboard/sections_trans.created_add') }}</th>
+                                                        <th>{{ trans('Dashboard/service_trans.description') }}</th>
+                                                        <th>{{ trans('Dashboard/Patient_trans.owes') }}</th>
+                                                        <th>{{ trans('Dashboard/Patient_trans.creditos') }}</th>
+                                                        <th>{{ trans('Dashboard/Patient_trans.final_balance') }}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -184,18 +180,18 @@
                                                             <td>{{$loop->iteration}}</td>
                                                             <td>{{$Patient_account->date}}</td>
                                                             <td>
-                                                                @if($Patient_account->invoice_id == true)
+                                                                @if($Patient_account->single_invoice_id == true)
                                                                     {{$Patient_account->invoice->Service->name ?? $Patient_account->invoice->Group->name }}
 
-                                                                @elseif($Patient_account->receipt_id == true)
+                                                                @elseif($Patient_account->receip_id == true)
                                                                     {{$Patient_account->ReceiptAccount->description}}
 
-                                                                @elseif($Patient_account->Payment_id == true)
+                                                                @elseif($Patient_account->payment_id == true)
                                                                     {{$Patient_account->PaymentAccount->description}}
                                                                 @endif
 
                                                             </td>
-                                                            <td>{{ $Patient_account->Debit}}</td>
+                                                            <td>{{ $Patient_account->Dabit}}</td>
                                                             <td>{{ $Patient_account->credit}}</td>
                                                             <td></td>
                                                         </tr>
@@ -203,12 +199,24 @@
                                                     @endforeach
                                                     <tr>
                                                         <th colspan="3" scope="row" class="alert alert-success">
-                                                            الاجمالي
+                                                            {{ trans('Dashboard/group_service_trans.total') }}
                                                         </th>
-                                                        <td class="alert alert-primary">{{ number_format( $Debit = $Patient_accounts->sum('Debit'), 2) }}</td>
+                                                        <td class="alert alert-primary">{{ number_format( $Dabit = $Patient_accounts->sum('Dabit'), 2) }}</td>
                                                         <td class="alert alert-primary">{{ number_format( $credit = $Patient_accounts->sum('credit'), 2) }}</td>
                                                         <td class="alert alert-danger">
-                                                            <span class="text-danger"> {{$Debit - $credit}}   {{ $Debit-$credit > 0 ? 'مدين' :'دائن'}}</span>                                                        </td>
+                                                            <span class="text-danger">
+                                                                {{$Dabit - $credit}}
+                                                                {{ if($Dabit-$credit > 0 ){
+                                                                        trans('Dashboard/Patient_trans.owes');}
+                                                                    elseif ($Dabit-$credit < 0) {
+                                                                        trans('Dashboard/Patient_trans.creditos');
+                                                                    }
+                                                                    else {
+                                                                        
+                                                                    }
+                                                                }}
+                                                             </span>
+                                                        </td>
                                                     </tr>
                                                     </tbody>
                                                 </table>

@@ -1,6 +1,6 @@
 @extends('Dashboard.layouts.master')
 @section('title')
-    طباعه الفواتير
+     {{ trans('Dashboard/print.Invoice_print') }}
 @stop
 @section('css')
     <style>
@@ -16,7 +16,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ طباعه الفواتير</span>
+                <h4 class="content-title mb-0 my-auto">{{ trans('Dashboard/main-sidebar-trans.invoice') }}</h4>
+                <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('Dashboard/print.Invoice_print') }}</span>
             </div>
         </div>
     </div>
@@ -30,23 +31,20 @@
                 <div class="card card-invoice">
                     <div class="card-body">
                         <div class="invoice-header">
-                            <h1 class="invoice-title">فاتوره خدمه مفرده</h1>
+                            <h1 class="invoice-title">{{ trans('Dashboard/main-sidebar-trans.single_servise_invoice') }}</h1>
                             <div class="billed-from">
-                                <h6>فاتوره خدمه مفرده</h6>
-                                <p>201 المهندسين<br>
-                                    Tel No: 0111111111<br>
-                                    Email: Admin@gmail.com</p>
+                                <h6>{{ trans('Dashboard/main-sidebar-trans.Main') }}</h6>
+                                    <p> {{ trans('Dashboard/doctor_trans.phone') }}: 0111111111<br>
+                                    {{ trans('Dashboard/doctor_trans.email') }}: Admin@gmail.com</p>
                             </div><!-- billed-from -->
                         </div><!-- invoice-header -->
                         <div class="row mg-t-20">
 
                             <div class="col-md">
-                                <label class="tx-gray-600">معلومات الفاتوره</label>
-                                {{--                                <p class="invoice-info-row"><span>اسم الخدمه</span> <span>{{$single_invoice->Service->name}}</span></p>--}}
-                                {{--                                <p class="invoice-info-row"><span>اسم المريض</span> <span>{{$single_invoice->patient->name}}</span></p>--}}
-                                <p class="invoice-info-row"><span>تاريخ الفاتوره</span> <span>{{ Request::get('invoice_date') }}</span></p>
-                                <p class="invoice-info-row"><span>الدكتور</span> <span></span>{{ Request::get('doctor_id') }}</p>
-                                <p class="invoice-info-row"><span>القسم</span> <span></span>{{ Request::get('section_id') }}</p>
+                                <label class="tx-gray-600">{{ trans('Dashboard/print.Invoice_information') }} </label>
+                                <p class="invoice-info-row"><span>{{ trans('Dashboard/service_trans.created_at') }}</span> <span>{{ Request::get('invoice_date') }}</span></p>
+                                <p class="invoice-info-row"><span>{{ trans('Dashboard/doctor_trans.doctor ') }}</span> <span></span>{{ Request::get('doctor_id') }}</p>
+                                <p class="invoice-info-row"><span>{{ trans('Dashboard/doctor_trans.section_name') }}</span> <span></span>{{ Request::get('section_id') }}</p>
                             </div>
                         </div>
                         <div class="table-responsive mg-t-40">
@@ -54,9 +52,9 @@
                                 <thead>
                                 <tr>
                                     <th class="wd-20p">#</th>
-                                    <th class="wd-40p">اسم الخدمه</th>
-                                    <th class="tx-center">سعر الخدمه</th>
-                                    <th class="tx-right">نوع الفاتوره</th>
+                                    <th class="wd-40p">{{ trans('Dashboard/group_service_trans.name_service') }}</th>
+                                    <th class="tx-center">{{ trans('Dashboard/doctor_trans.price') }}</th>
+                                    <th class="tx-right">{{ trans('Dashboard/single_invoice.invoice_type') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -72,19 +70,19 @@
                                             <label class="main-content-label tx-13"></label>
                                         </div><!-- invoice-notes -->
                                     </td>
-                                    <td class="tx-right">الاجمالي</td>
+                                    <td class="tx-right">{{ trans('Dashboard/group_service_trans.total') }}</td>
                                     <td class="tx-right" colspan="2"> {{number_format(Request::get('price'), 2)}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="tx-right">قيمة الخصم</td>
+                                    <td class="tx-right">{{ trans('Dashboard/group_service_trans.discount_value') }} </td>
                                     <td class="tx-right" colspan="2">{{Request::get('discount_value')}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="tx-right">نسبة الضريبة</td>
+                                    <td class="tx-right">{{ trans('Dashboard/single_invoice.tax_value') }}</td>
                                     <td class="tx-right" colspan="2">% {{Request::get('tax_rate')}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="tx-right tx-uppercase tx-bold tx-inverse">الاجمالي شامل الضريبه</td>
+                                    <td class="tx-right tx-uppercase tx-bold tx-inverse">{{ trans('Dashboard/group_service_trans.total_with_tax') }}</td>
                                     <td class="tx-right" colspan="2">
                                         <h4 class="tx-primary tx-bold">{{number_format(Request::get('total_with_tax'), 2)}}</h4>
 
@@ -95,7 +93,7 @@
                         </div>
                         <hr class="mg-b-40">
                         <a href="#" class="btn btn-danger float-left mt-3 mr-2" id="print_Button" onclick="printDiv()">
-                            <i class="mdi mdi-printer ml-1"></i>طباعه
+                            <i class="mdi mdi-printer ml-1"></i>{{ trans('Dashboard/print.print') }}
                         </a>
                     </div>
                 </div>

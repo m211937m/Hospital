@@ -1,6 +1,6 @@
 @extends('Dashboard.layouts.master')
 @section('title')
-     {{ trans('Dashboard/main-sidebar-trans.Bond_Catch') }}
+    {{ trans('Dashboard/main-sidebar-trans.Exchange_Bond') }}
 @stop
 @section('css')
     <link href="{{URL::asset('Dashboard/plugins/datatable/css/buttons.bootstrap4.min.css')}}" rel="stylesheet">
@@ -27,7 +27,7 @@
 					<div class="my-auto">
 						<div class="d-flex">
 							<h4 class="content-title mb-0 my-auto">{{ trans('Dashboard/main-sidebar-trans.Accounts') }}</h4>
-                            <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('Dashboard/main-sidebar-trans.Bond_Catch') }}</span>
+                            <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('Dashboard/main-sidebar-trans.Exchange_Bond') }}</span>
 						</div>
 					</div>
 				</div>
@@ -42,7 +42,7 @@
                             <div class="card">
                                 <div class="card-header pb-0">
                                     <div class="d-flex justify-content-between">
-                                        <a href="{{route('Receipt.create')}}" class="btn btn-primary" role="button"
+                                        <a href="{{route('Payment.create')}}" class="btn btn-primary" role="button"
                                            aria-pressed="true">{{ trans('Dashboard/receipt.Added_a_new_bond') }}</a>
                                     </div>
                                 </div>
@@ -55,26 +55,26 @@
                                                 <th>{{ trans('Dashboard/single_invoice.patient_name') }}</th>
                                                 <th>{{ trans('Dashboard/receipt.Amount') }}</th>
                                                 <th>{{ trans('Dashboard/sections_trans.description') }}</th>
-                                                <th> {{ trans('Dashboard/service_trans.created_at') }}</th>
+                                                <th>{{ trans('Dashboard/service_trans.created_at') }}</th>
                                                 <th>{{ trans('Dashboard/sections_trans.operations') }}</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                           @foreach($receipts as $receipt)
+                                           @foreach($payments as $payment)
                                                <tr>
                                                    <td>{{$loop->iteration}}</td>
-                                                   <td>{{ $receipt->patients->name }}</td>
-                                                   <td>{{ number_format($receipt->Debit, 2) }}</td>
-                                                   <td>{{ \Str::limit($receipt->description, 50) }}</td>
-                                                   <td>{{ $receipt->created_at->diffForHumans() }}</td>
+                                                   <td>{{ $payment->patients->name }}</td>
+                                                   <td>{{ number_format($payment->amount, 2) }}</td>
+                                                   <td>{{ \Str::limit($payment->description, 50) }}</td>
+                                                   <td>{{ $payment->created_at->diffForHumans() }}</td>
                                                    <td>
-                                                       <a href="{{route('Receipt.edit',$receipt->id)}}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-                                                       <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"  data-toggle="modal" href="#delete{{$receipt->id}}"><i class="las la-trash"></i></a>
-                                                       <a href="{{route('Receipt.show',$receipt->id)}}" class="btn btn-primary btn-sm" target="_blank" title="طباعه سند قبض"><i class="fas fa-print"></i></a>
+                                                       <a href="{{route('Payment.edit',$payment->id)}}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                                                       <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"  data-toggle="modal" href="#delete{{$payment->id}}"><i class="las la-trash"></i></a>
+                                                       <a href="{{route('Payment.show',$payment->id)}}" class="btn btn-primary btn-sm" target="_blank" title="طباعه سند صرف"><i class="fas fa-print"></i></a>
 
                                                    </td>
                                                </tr>
-                                           @include('Dashboard.Receipt.delete')
+                                           @include('Dashboard.Payment.delete')
                                            @endforeach
                                             </tbody>
                                         </table>
@@ -95,6 +95,8 @@
 @endsection
 @section('js')
 
+
+
     <script src="{{URL::asset('Dashboard/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{URL::asset('Dashboard/plugins/datatable/js/dataTables.dataTables.min.js')}}"></script>
     <script src="{{URL::asset('Dashboard/plugins/datatable/js/dataTables.responsive.min.js')}}"></script>
@@ -112,7 +114,6 @@
     <script src="{{URL::asset('Dashboard/plugins/datatable/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{URL::asset('Dashboard/plugins/datatable/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{URL::asset('Dashboard/js/table-data.js')}}"></script>
-
     <!--Internal  Notify js -->
     <script src="{{URL::asset('dashboard/plugins/notify/js/notifIt.js')}}"></script>
     <script src="{{URL::asset('/plugins/notify/js/notifit-custom.js')}}"></script>

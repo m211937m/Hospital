@@ -30,7 +30,7 @@ class PatientController extends Controller
 
     public function show($id)
     {
-        //
+        return $this->Patients->show($id);
     }
 
     public function edit($id)
