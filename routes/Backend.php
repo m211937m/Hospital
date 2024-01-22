@@ -37,6 +37,8 @@ Route::group(
         Route::get('/dashboard/admin', function () {
             return view('Dashboard.Admin.dashboard');})->middleware(['auth:admin', 'verified'])->name('dashboard.admin');
 
+        
+
         Route::middleware('auth:admin')->group(function () {
             //Section
             Route::resource('Sections', SectionController::class);
@@ -50,8 +52,10 @@ Route::group(
             Route::view('Add_GroupServise','livewire.GroupServices.include_create')->name('Add_GroupServise');
             //single_invoices
             Route::view('single_invoices','livewire.single_invoices.index')->name('single_invoices');
-
             Route::view('print_single_invoices','livewire.single_invoices.print')->name('print_single_invoices');
+            //group_invoices
+            Route::view('group_invoices','livewire.group_invoices.index')->name('group_invoices');
+            Route::view('print_group_invoices','livewire.group_invoices.print')->name('print_group_invoices');
             //insurance
             Route::resource('insurance', InsuranceController::class);
             //Ambulances

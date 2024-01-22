@@ -3,6 +3,7 @@
 namespace App\Repositorys\Patients;
 
 use App\Interfaces\Patients\PatientInterface;
+use App\Models\Invoice;
 use App\Models\Patient;
 use App\Models\Patient_account;
 use App\Models\RecipAccount;
@@ -75,9 +76,9 @@ class PatientRepository implements PatientInterface
         try{
 
             $Patient = Patient::findorfail($id);
-            $invoices = single_invoices::where('patient_id',$id)->get();
+            $invoices = Invoice::where('patient_id',$id)->get();
             $receipt_accounts = RecipAccount::where('patient_id',$id)->get();
-            $Patient_accounts = Patient_account::orWhereNotNull('single_invoice_id')
+            $Patient_accounts = Patient_account::orWhereNotNull('invoice_id')
             ->orWhereNotNull('receip_id')
             ->orWhereNotNull('payment_id')
             ->where('patient_id',$id)

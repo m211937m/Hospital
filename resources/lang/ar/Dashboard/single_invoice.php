@@ -9,5 +9,6 @@ return [
     'tax_value' => 'قيمة الضريبة',
     'date' => 'التاريخ',
     'new_invoice_add' => 'أضافة فاتورة جديدة ',
+    'invoice_information_delete' => 'حذف معلومات فاتورة  ',
 
 ];

@@ -1,6 +1,6 @@
 @extends('Dashboard.layouts.master')
 @section('title')
-     {{ trans('Dashboard/print.Invoice_print') }}
+    {{ trans('Dashboard/print.Invoice_print') }}
 @stop
 @section('css')
     <style>
@@ -31,11 +31,11 @@
                 <div class="card card-invoice">
                     <div class="card-body">
                         <div class="invoice-header">
-                            <h1 class="invoice-title">{{ trans('Dashboard/main-sidebar-trans.single_servise_invoice') }}</h1>
+                            <h1 class="invoice-title">{{ trans('Dashboard/main-sidebar-trans.Groub_servise_invoices') }}</h1>
                             <div class="billed-from">
                                 <h6>{{ trans('Dashboard/main-sidebar-trans.Main') }}</h6>
-                                    <p> {{ trans('Dashboard/doctor_trans.phone') }}: 0111111111<br>
-                                    {{ trans('Dashboard/doctor_trans.email') }}: Admin@gmail.com</p>
+                                <p> {{ trans('Dashboard/doctor_trans.phone') }}: 0111111111<br>
+                                {{ trans('Dashboard/doctor_trans.email') }}: Admin@gmail.com</p>
                             </div><!-- billed-from -->
                         </div><!-- invoice-header -->
                         <div class="row mg-t-20">
@@ -60,7 +60,7 @@
                                 <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td class="tx-12">{{ Request::get('Service_id') }}</td>
+                                    <td class="tx-12">{{ Request::get('Group_id') }}</td>
                                     <td class="tx-center">{{ Request::get('price') }}</td>
                                     <td class="tx-right">{{Request::get('type') == 1 ?  trans('Dashboard/single_invoice.cash')  : 'اجل'}}</td>
                                 </tr>
@@ -74,7 +74,7 @@
                                     <td class="tx-right" colspan="2"> {{number_format(Request::get('price'), 2)}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="tx-right">{{ trans('Dashboard/group_service_trans.discount_value') }} </td>
+                                    <td class="tx-right">{{ trans('Dashboard/group_service_trans.discount_value') }}</td>
                                     <td class="tx-right" colspan="2">{{Request::get('discount_value')}}</td>
                                 </tr>
                                 <tr>

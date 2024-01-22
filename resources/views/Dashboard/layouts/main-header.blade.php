@@ -263,6 +263,13 @@
                                              onclick="event.preventDefault();
                                              this.closest('form').submit();"><i class="bx bx-log-out"></i>تسجيل الخروج</a>
                                         </form>
+                                    @else
+                                        <form method="POST" action="{{ route('logout.doctor') }}">
+                                            @csrf
+                                            <a class="dropdown-item" href="{{ route('logout.admin') }}"
+                                             onclick="event.preventDefault();
+                                             this.closest('form').submit();"><i class="bx bx-log-out"></i>تسجيل الخروج</a>
+                                        </form>
                                     @endif
 
 

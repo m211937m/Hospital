@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Interfaces\Ambulances\AmbulanceInterface;
+use App\Interfaces\doctor_dashboard\InvoicesInterface;
 use App\Interfaces\Doctors\DoctorInterface;
 use App\Interfaces\Finance\PaymentRepositoryInterface;
 use App\Interfaces\Finance\ReceiptRepositoryInterface;
@@ -11,6 +12,7 @@ use App\Interfaces\Patients\PatientInterface;
 use App\Interfaces\Sections\SectionInterface;
 use App\Interfaces\Services\SingleServiceInterface;
 use App\Repositorys\Ambulances\AmbulanceRepository;
+use App\Repositorys\doctor_dashboard\InvoiceRepository;
 use App\Repositorys\Doctors\DoctorRepository;
 use App\Repositorys\Finance\PaymentRepository;
 use App\Repositorys\Finance\ReceiptRepositoryRepository;
@@ -29,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // --------------------------------------------------------------------------------------------------
+        //admin
+
+
         //section
         $this->app->bind(
             SectionInterface::class, // the interface
@@ -68,6 +74,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             PaymentRepositoryInterface::class, // the interface
             PaymentRepository::class, // the implementation
+        );
+
+        // --------------------------------------------------------------------------------------------------
+        //doctor
+
+
+        //Invoice
+        $this->app->bind(
+            InvoicesInterface::class, // the interface
+            InvoiceRepository::class, // the implementation
         );
     }
 

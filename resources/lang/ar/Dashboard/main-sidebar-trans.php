@@ -15,6 +15,7 @@ return [
     "Patient_list" => "قائمة المرضى",
     "invoice" => "فاتورة",
     "single_servise_invoice" => "فاتورة الخدمات المفردة",
+    "Groub_servise_invoices" => "فاتورة مجموعة الخدمات ",
     "Accounts" => "الحسابات",
     "Bond_Catch" => "سند قبض",
     "Exchange_Bond" => "سند صرف",

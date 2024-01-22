@@ -1,4 +1,10 @@
 <div>
+    @if ($catchError)
+        <div class="alert alert-danger" id="success-danger">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            {{ $catchError }}
+        </div>
+    @endif
         @if ($ServiceSaved)
             <div class="alert alert-info">{{ trans('Dashboard/messages.add') }}</div>
         @endif

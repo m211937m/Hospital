@@ -20,6 +20,8 @@ class CreateGroupServices extends Component
     public $show_table = true;
     public $updateMode = false;
     public $group_id;
+    public $catchError;
+
     public function mount()
     {
         $this->allServices = Service::all();
@@ -118,7 +120,7 @@ class CreateGroupServices extends Component
                 $this->ServiceUpdated = true;
             }
             catch(Exception $e){
-                return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+                $this->catchError = $e->getMessage();
             }
         }
 
@@ -164,7 +166,7 @@ class CreateGroupServices extends Component
 
             }
             catch(Exception $e){
-                return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+                $this->catchError = $e->getMessage();
             }
         }
     }
@@ -201,7 +203,7 @@ class CreateGroupServices extends Component
             }
         }
         catch(Exception $e){
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            $this->catchError = $e->getMessage();
         }
     }
 
@@ -211,7 +213,7 @@ class CreateGroupServices extends Component
             return redirect()->to('/Add_GroupServices');
         }
         catch(Exception $e){
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            $this->catchError = $e->getMessage();
         }
     }
 }

@@ -68,7 +68,7 @@
                                                     <tr>
                                                         <td>1</td>
                                                         <td>{{$Patient->name}}</td>
-                                                        <td>{{$Patient->Phone}}</td>
+                                                        <td>{{$Patient->phone}}</td>
                                                         <td>{{$Patient->email}}</td>
                                                         <td>{{$Patient->Date_Birth}}</td>
                                                         <td>{{$Patient->Gender == 1 ? trans('Dashboard/Patient_trans.male') : trans('Dashboard/Patient_trans.female') }}</td>
@@ -180,7 +180,7 @@
                                                             <td>{{$loop->iteration}}</td>
                                                             <td>{{$Patient_account->date}}</td>
                                                             <td>
-                                                                @if($Patient_account->single_invoice_id == true)
+                                                                @if($Patient_account->invoice_id == true)
                                                                     {{$Patient_account->invoice->Service->name ?? $Patient_account->invoice->Group->name }}
 
                                                                 @elseif($Patient_account->receip_id == true)
@@ -206,15 +206,11 @@
                                                         <td class="alert alert-danger">
                                                             <span class="text-danger">
                                                                 {{$Dabit - $credit}}
-                                                                {{ if($Dabit-$credit > 0 ){
-                                                                        trans('Dashboard/Patient_trans.owes');}
-                                                                    elseif ($Dabit-$credit < 0) {
-                                                                        trans('Dashboard/Patient_trans.creditos');
-                                                                    }
-                                                                    else {
-                                                                        
-                                                                    }
-                                                                }}
+                                                                @if($Dabit-$credit > 0 )
+                                                                        {{ trans('Dashboard/Patient_trans.owes') }}
+                                                                @elseif ($Dabit-$credit < 0)
+                                                                        {{ trans('Dashboard/Patient_trans.creditos') }}
+                                                                @endif
                                                              </span>
                                                         </td>
                                                     </tr>

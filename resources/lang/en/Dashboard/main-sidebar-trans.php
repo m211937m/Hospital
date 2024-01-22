@@ -15,6 +15,7 @@ return [
     "Patient_list" => "Patient list",
     "invoice" => "invoice",
     "single_servise_invoice" => "single servise invoice",
+    "Groub_servise_invoices" => "Groub servises invoices",
     "Accounts" => "Accounts",
     "Bond_Catch" => "Bond Catch",
     "Exchange_Bond" => "Exchange Bond",

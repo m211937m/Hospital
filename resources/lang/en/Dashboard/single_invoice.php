@@ -9,5 +9,5 @@ return [
     'tax_value' => 'tax value',
     'date' => 'date',
     'new_invoice_add' => 'new invoice add',
-
+    'invoice_information_delete' => 'invoice information delete',
 ];

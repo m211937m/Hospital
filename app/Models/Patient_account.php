@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Patient_account extends Model
 {
     use HasFactory;
-    public $fillable = ['date','patient_id','single_invoice_id','Dabit','credit'];
+    public $fillable = ['date','patient_id','invoice_id','Dabit','credit'];
 
     public function invoice(){
-        return $this->belongsTo(single_invoices::class,'single_invoice_id');
+        return $this->belongsTo(Invoice::class,'invoice_id');
     }
     public function ReceiptAccount(){
         return $this->belongsTo(RecipAccount::class,'receip_id');
