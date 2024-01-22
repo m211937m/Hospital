@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\RecipAccountController;
 use App\Http\Controllers\Dashboard\SingleServiceController;
 use App\Http\Controllers\Dashboard\PaymentAccountsController;
+use App\Http\Controllers\doctor\Diagnostic;
 use App\Http\Controllers\doctor\InvoiceContoller;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,7 @@ Route::group(
 
         Route::middleware('auth:doctor')->group(function () {
             Route::resource('invoice', InvoiceContoller::class);
+            Route::resource('Diagnostics', Diagnostic::class);
 
         });
         require __DIR__.'/auth.php';

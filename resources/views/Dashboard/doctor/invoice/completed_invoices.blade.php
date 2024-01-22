@@ -1,6 +1,6 @@
 @extends('Dashboard.layouts.master')
 @section('title')
-     {{ trans('Dashboard/main-sidebar-trans.Bond_Catch') }}
+   الكشوفات المكتملة
 @stop
 @section('css')
     <!-- Internal Data table css -->
@@ -21,8 +21,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">{{ trans('Dashboard/main-sidebar-trans.Accounts') }}</h4>
-                            <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('Dashboard/main-sidebar-trans.Bond_Catch') }}</span>
+							<h4 class="content-title mb-0 my-auto">الكشوفات المكتملة</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ الفواتير</span>
 						</div>
 					</div>
 				</div>
@@ -35,41 +34,46 @@
                     <div class="row row-sm">
                         <div class="col-xl-12">
                             <div class="card">
-                                <div class="card-header pb-0">
-                                    <div class="d-flex justify-content-between">
-                                        <a href="{{route('Receipt.create')}}" class="btn btn-primary" role="button"
-                                           aria-pressed="true">{{ trans('Dashboard/receipt.Added_a_new_bond') }}</a>
-                                    </div>
-                                </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table text-md-nowrap" id="example1">
                                             <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>{{ trans('Dashboard/single_invoice.patient_name') }}</th>
-                                                <th>{{ trans('Dashboard/receipt.Amount') }}</th>
-                                                <th>{{ trans('Dashboard/sections_trans.description') }}</th>
-                                                <th> {{ trans('Dashboard/service_trans.created_at') }}</th>
-                                                <th>{{ trans('Dashboard/sections_trans.operations') }}</th>
+                                                <th>تاريخ الفاتورة</th>
+                                                <th>اسم الخدمة</th>
+                                                <th>اسم المريض</th>
+                                                <th>سعر الخدمة</th>
+                                                <th>قيمة الخصم</th>
+                                                <th>نسبة الضريبة</th>
+                                                <th>قيمة الضريبة</th>
+                                                <th>الاجمالي مع الضريبة</th>
+                                                <th>حالة الفاتورة</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                           @foreach($receipts as $receipt)
+                                           @foreach($invoices as $invoice)
                                                <tr>
-                                                   <td>{{$loop->iteration}}</td>
-                                                   <td>{{ $receipt->patients->name }}</td>
-                                                   <td>{{ number_format($receipt->Debit, 2) }}</td>
-                                                   <td>{{ \Str::limit($receipt->description, 50) }}</td>
-                                                   <td>{{ $receipt->created_at->diffForHumans() }}</td>
+                                                   <td>{{ $loop->iteration}}</td>
+                                                   <td>{{ $invoice->invoice_date }}</td>
+                                                   <td>{{ $invoice->Service->name ?? $invoice->Group->name }}</td>
+                                                   <td><a href="{{route('patient_details',$invoice->patient_id)}}">{{ $invoice->Patient->name }}</a></td>
+                                                   <td>{{ number_format($invoice->price, 2) }}</td>
+                                                   <td>{{ number_format($invoice->discount_value, 2) }}</td>
+                                                   <td>{{ $invoice->tax_rate }}%</td>
+                                                   <td>{{ number_format($invoice->tax_value, 2) }}</td>
+                                                   <td>{{ number_format($invoice->total_with_tax, 2) }}</td>
                                                    <td>
-                                                       <a href="{{route('Receipt.edit',$receipt->id)}}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-                                                       <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"  data-toggle="modal" href="#delete{{$receipt->id}}"><i class="las la-trash"></i></a>
-                                                       <a href="{{route('Receipt.show',$receipt->id)}}" class="btn btn-primary btn-sm" target="_blank" title="طباعه سند قبض"><i class="fas fa-print"></i></a>
-
+                                                      @if($invoice->invoice_status == 1)
+                                                           <span class="badge badge-danger">تحت الاجراء</span>
+                                                      @elseif($invoice->invoice_status == 2)
+                                                           <span class="badge badge-warning">مراجعة</span>
+                                                       @else
+                                                          <span class="badge badge-success">مكتملة</span>
+                                                       @endif
                                                    </td>
                                                </tr>
-                                           @include('Dashboard.Receipt.delete')
+                                               @include('Dashboard.Doctor.invoices.add_diagnosis')
                                            @endforeach
                                             </tbody>
                                         </table>
@@ -80,7 +84,6 @@
                         <!--/div-->
 
                     <!-- /row -->
-
 				</div>
 				<!-- row closed -->
 
@@ -89,6 +92,7 @@
 		<!-- main-content closed -->
 @endsection
 @section('js')
+
 
     <!--Internal  Notify js -->
     <script src="{{URL::asset('dashboard/plugins/notify/js/notifIt.js')}}"></script>
