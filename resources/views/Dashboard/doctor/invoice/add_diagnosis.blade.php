@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">تشخيص حالة مريض</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ trans('Dashboard/Statements_trans.Diagnosis_of_a_patient') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -17,19 +17,19 @@
                 <input type="hidden" name="doctor_id" value="{{$invoice->doctor_id}}">
 
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">التشخيص</label>
+                    <label for="exampleFormControlTextarea1">{{ trans('Dashboard/Statements_trans.diagnosis') }}</label>
                     <textarea class="form-control" name="diagnosis" rows="6"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">الادوية</label>
+                    <label for="exampleFormControlTextarea1">{{ trans('Dashboard/Statements_trans.Pharmaceuticals') }}</label>
                     <textarea class="form-control" name="medicine" rows="6"></textarea>
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
-                <button type="submit" class="btn btn-primary">حفظ البيانات</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('Dashboard/sections_trans.exit') }}</button>
+                <button type="submit" class="btn btn-primary">{{ trans('Dashboard/sections_trans.add') }}</button>
             </div>
             </form>
         </div>

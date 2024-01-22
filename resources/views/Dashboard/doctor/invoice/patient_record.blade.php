@@ -1,4 +1,5 @@
 @extends('Dashboard.layouts.master_doctor')
+@section('title', trans('Dashboard/Statements_trans.Patient_Record'))
 @section('css')
 @endsection
 @section('page-header')
@@ -6,7 +7,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">المريض</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ سجل المريض</span>
+                <h4 class="content-title mb-0 my-auto">{{ trans('Dashboard/Patient_trans.Patient') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('Dashboard/Statements_trans.Patient_Record') }}</span>
             </div>
         </div>
     </div>
@@ -24,7 +25,7 @@
                             <div class="timeline-badge"><i class="las la-check-circle"></i></div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h6 class="timeline-title">Art Ramadani posted a status update</h6>
+                                    <h6 class="timeline-title">{{trans('Dashboard/Statements_trans.diagnosis') }}</h6>
                                 </div>
                                 <div class="timeline-body">
                                     <p>{{$patient_record->diagnostic}}</p>

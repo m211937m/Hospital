@@ -19,6 +19,8 @@ return [
     "Accounts" => "الحسابات",
     "Bond_Catch" => "سند قبض",
     "Exchange_Bond" => "سند صرف",
+    "Statements" => "الكشوفات",
+    "" => " ",
 
 
 ];
