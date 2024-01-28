@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\RecipAccountController;
 use App\Http\Controllers\Dashboard\SingleServiceController;
 use App\Http\Controllers\Dashboard\PaymentAccountsController;
+use App\Http\Controllers\Dashboard\Ray_employee;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -37,7 +38,7 @@ Route::group(
         Route::get('/dashboard/admin', function () {
             return view('Dashboard.Admin.dashboard');})->middleware(['auth:admin', 'verified'])->name('dashboard.admin');
 
-        
+
 
         Route::middleware('auth:admin')->group(function () {
             //Section
@@ -66,6 +67,8 @@ Route::group(
             Route::resource('Receipt', RecipAccountController::class);
             //Payment
             Route::resource('Payment', PaymentAccountsController::class);
+            //Ray_employee
+            Route::resource('ray_employee', Ray_employee::class);
 
         });
         require __DIR__.'/auth.php';

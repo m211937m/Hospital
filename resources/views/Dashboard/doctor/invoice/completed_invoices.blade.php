@@ -1,6 +1,6 @@
-@extends('Dashboard.layouts.master')
+@extends('Dashboard.layouts.master_doctor')
 @section('title')
-   الكشوفات المكتملة
+    {{ trans('Dashboard/main-sidebar-trans.List_of_completed_statements') }}
 @stop
 @section('css')
     <!-- Internal Data table css -->
@@ -21,7 +21,8 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">الكشوفات المكتملة</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ الفواتير</span>
+							<h4 class="content-title mb-0 my-auto">{{ trans('Dashboard/main-sidebar-trans.List_of_completed_statements') }}</h4>
+                            <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('Dashboard/main-sidebar-trans.invoice') }}</span>
 						</div>
 					</div>
 				</div>
@@ -40,40 +41,40 @@
                                             <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>تاريخ الفاتورة</th>
-                                                <th>اسم الخدمة</th>
-                                                <th>اسم المريض</th>
-                                                <th>سعر الخدمة</th>
-                                                <th>قيمة الخصم</th>
-                                                <th>نسبة الضريبة</th>
-                                                <th>قيمة الضريبة</th>
-                                                <th>الاجمالي مع الضريبة</th>
-                                                <th>حالة الفاتورة</th>
+                                                <th>{{ trans('Dashboard/service_trans.created_at') }}</th>
+                                                <th>{{ trans('Dashboard/group_service_trans.name_service') }}</th>
+                                                <th>{{ trans('Dashboard/single_invoice.patient_name') }}</th>
+                                                <th>{{ trans('Dashboard/service_trans.price') }}</th>
+                                                <th>{{ trans('Dashboard/group_service_trans.discount_value') }}</th>
+                                                <th>{{ trans('Dashboard/group_service_trans.tax_ratoi') }}</th>
+                                                <th>{{ trans('Dashboard/single_invoice.tax_value') }}</th>
+                                                <th>{{ trans('Dashboard/group_service_trans.total_with_tax') }}</th>
+                                                <th>{{ trans('Dashboard/doctor_trans.status') }}</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                            @foreach($invoices as $invoice)
                                                <tr>
                                                    <td>{{ $loop->iteration}}</td>
-                                                   <td>{{ $invoice->invoice_date }}</td>
+                                                   <td>{{ $invoice->date }}</td>
                                                    <td>{{ $invoice->Service->name ?? $invoice->Group->name }}</td>
-                                                   <td><a href="{{route('patient_details',$invoice->patient_id)}}">{{ $invoice->Patient->name }}</a></td>
+                                                   <td><a href="{{ route('Patient.Details',$invoice->id) }}">{{ $invoice->Patient->name }}</a></td>
                                                    <td>{{ number_format($invoice->price, 2) }}</td>
                                                    <td>{{ number_format($invoice->discount_value, 2) }}</td>
                                                    <td>{{ $invoice->tax_rate }}%</td>
                                                    <td>{{ number_format($invoice->tax_value, 2) }}</td>
                                                    <td>{{ number_format($invoice->total_with_tax, 2) }}</td>
                                                    <td>
-                                                      @if($invoice->invoice_status == 1)
-                                                           <span class="badge badge-danger">تحت الاجراء</span>
-                                                      @elseif($invoice->invoice_status == 2)
-                                                           <span class="badge badge-warning">مراجعة</span>
-                                                       @else
-                                                          <span class="badge badge-success">مكتملة</span>
-                                                       @endif
+                                                    @if($invoice->invoice_status == 1)
+                                                        <span class="badge badge-danger">{{ trans('Dashboard/Statements_trans.Under_procedure') }}</span>
+                                                    @elseif($invoice->invoice_status == 2)
+                                                        <span class="badge badge-warning">{{ trans('Dashboard/Statements_trans.Review') }}</span>
+                                                    @else
+                                                        <span class="badge badge-success">{{ trans('Dashboard/Statements_trans.Completed') }}</span>
+                                                    @endif
                                                    </td>
                                                </tr>
-                                               @include('Dashboard.Doctor.invoices.add_diagnosis')
+                                               {{-- @include('Dashboard.doctor.invoice.add_diagnosis') --}}
                                            @endforeach
                                             </tbody>
                                         </table>

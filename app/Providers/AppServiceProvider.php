@@ -2,27 +2,33 @@
 
 namespace App\Providers;
 
-use App\Interfaces\Ambulances\AmbulanceInterface;
-use App\Interfaces\doctor_dashboard\DiagnosisInterface;
-use App\Interfaces\doctor_dashboard\InvoicesInterface;
-use App\Interfaces\Doctors\DoctorInterface;
-use App\Interfaces\Finance\PaymentRepositoryInterface;
-use App\Interfaces\Finance\ReceiptRepositoryInterface;
-use App\Interfaces\Insurances\InsuranceInterface;
-use App\Interfaces\Patients\PatientInterface;
-use App\Interfaces\Sections\SectionInterface;
-use App\Interfaces\Services\SingleServiceInterface;
-use App\Repositorys\Ambulances\AmbulanceRepository;
-use App\Repositorys\doctor_dashboard\DiagnosisRepository;
-use App\Repositorys\doctor_dashboard\InvoiceRepository;
-use App\Repositorys\Doctors\DoctorRepository;
-use App\Repositorys\Finance\PaymentRepository;
-use App\Repositorys\Finance\ReceiptRepositoryRepository;
-use App\Repositorys\Insurances\InsuranceRepository;
-use App\Repositorys\Patients\PatientRepository;
-use App\Repositorys\Sections\SectionRepository;
-use App\Repositorys\Services\SingleServiceRepository;
-use Illuminate\Support\ServiceProvider;
+    use App\Interfaces\Ambulances\AmbulanceInterface;
+    use App\Interfaces\doctor_dashboard\DiagnosisInterface;
+    use App\Interfaces\doctor_dashboard\InvoicesInterface;
+    use App\Interfaces\doctor_dashboard\LaboratorieInterface;
+    use App\Interfaces\doctor_dashboard\RayInterface;
+    use App\Interfaces\Doctors\DoctorInterface;
+    use App\Interfaces\Finance\PaymentRepositoryInterface;
+    use App\Interfaces\Finance\ReceiptRepositoryInterface;
+    use App\Interfaces\Insurances\InsuranceInterface;
+    use App\Interfaces\Patients\PatientInterface;
+    use App\Interfaces\Ray_employee\Ray_employeeInterface;
+    use App\Interfaces\Sections\SectionInterface;
+    use App\Interfaces\Services\SingleServiceInterface;
+    use App\Repositorys\Ambulances\AmbulanceRepository;
+    use App\Repositorys\doctor_dashboard\DiagnosisRepository;
+    use App\Repositorys\doctor_dashboard\InvoiceRepository;
+    use App\Repositorys\doctor_dashboard\LaboratorieRepository;
+    use App\Repositorys\doctor_dashboard\RayRepository;
+    use App\Repositorys\Doctors\DoctorRepository;
+    use App\Repositorys\Finance\PaymentRepository;
+    use App\Repositorys\Finance\ReceiptRepositoryRepository;
+    use App\Repositorys\Insurances\InsuranceRepository;
+    use App\Repositorys\Patients\PatientRepository;
+    use App\Repositorys\Ray_employee\Ray_employeeRepository;
+    use App\Repositorys\Sections\SectionRepository;
+    use App\Repositorys\Services\SingleServiceRepository;
+    use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -77,10 +83,13 @@ class AppServiceProvider extends ServiceProvider
             PaymentRepositoryInterface::class, // the interface
             PaymentRepository::class, // the implementation
         );
+        //Ray_employee
+        $this->app->bind(
+            Ray_employeeInterface::class, // the interface
+            Ray_employeeRepository::class, // the implementation
+        );
 
-        // --------------------------------------------------------------------------------------------------
-        //doctor
-
+        // --------------------------------------------- //doctor//-----------------------------------------------------
 
         //Invoice
         $this->app->bind(
@@ -92,6 +101,18 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             DiagnosisInterface::class, // the interface
             DiagnosisRepository::class, // the implementation
+        );
+
+        // Ray
+        $this->app->bind(
+            RayInterface::class, // the interface
+            RayRepository::class, // the implementation
+        );
+
+        //Laboratorie
+        $this->app->bind(
+            LaboratorieInterface::class, // the interface
+            LaboratorieRepository::class, // the implementation
         );
     }
 

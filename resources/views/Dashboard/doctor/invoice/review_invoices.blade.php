@@ -1,6 +1,6 @@
-@extends('Dashboard.layouts.master')
+@extends('Dashboard.layouts.master_doctor')
 @section('title')
-   المراجعات
+   {{ trans('Dashboard/Statements_trans.Review') }}
 @stop
 @section('css')
     <!-- Internal Data table css -->
@@ -21,7 +21,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">المراجعات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ الفواتير</span>
+							<h4 class="content-title mb-0 my-auto"></h4>{{ trans('Dashboard/Statements_trans.Review') }}<span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('Dashboard/main-sidebar-trans.invoice') }}</span>
 						</div>
 					</div>
 				</div>
@@ -40,24 +40,24 @@
                                             <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>تاريخ الفاتورة</th>
-                                                <th>اسم الخدمة</th>
-                                                <th>اسم المريض</th>
-                                                <th>سعر الخدمة</th>
-                                                <th>قيمة الخصم</th>
-                                                <th>نسبة الضريبة</th>
-                                                <th>قيمة الضريبة</th>
-                                                <th>الاجمالي مع الضريبة</th>
-                                                <th>حالة الفاتورة</th>
-                                                <th>تاريخ المراجعة</th>
-                                                <th>العمليات</th>
+                                               <th>{{ trans('Dashboard/service_trans.created_at') }}</th>
+                                                <th>{{ trans('Dashboard/group_service_trans.name_service') }}</th>
+                                                <th>{{ trans('Dashboard/single_invoice.patient_name') }}</th>
+                                                <th>{{ trans('Dashboard/service_trans.price') }}</th>
+                                                <th>{{ trans('Dashboard/group_service_trans.discount_value') }}</th>
+                                                <th>{{ trans('Dashboard/group_service_trans.tax_ratoi') }}</th>
+                                                <th>{{ trans('Dashboard/single_invoice.tax_value') }}</th>
+                                                <th>{{ trans('Dashboard/group_service_trans.total_with_tax') }}</th>
+                                                <th>{{ trans('Dashboard/doctor_trans.status') }}</th>
+                                                <th>{{ trans('') }}</th>
+                                                <th>{{ trans('Dashboard/doctor_trans.operations') }}</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                            @foreach($invoices as $invoice)
                                                <tr>
                                                    <td>{{ $loop->iteration}}</td>
-                                                   <td>{{ $invoice->invoice_date }}</td>
+                                                   <td>{{ $invoice->date }}</td>
                                                    <td>{{ $invoice->Service->name ?? $invoice->Group->name }}</td>
                                                    <td><a href="{{route('Diagnostics.show',$invoice->patient_id)}}">{{ $invoice->Patient->name }}</a></td>
                                                    <td>{{ number_format($invoice->price, 2) }}</td>
@@ -66,13 +66,13 @@
                                                    <td>{{ number_format($invoice->tax_value, 2) }}</td>
                                                    <td>{{ number_format($invoice->total_with_tax, 2) }}</td>
                                                    <td>
-                                                      @if($invoice->invoice_status == 1)
-                                                           <span class="badge badge-danger">تحت الاجراء</span>
-                                                      @elseif($invoice->invoice_status == 2)
-                                                           <span class="badge badge-warning">مراجعة</span>
-                                                       @else
-                                                          <span class="badge badge-success">مكتملة</span>
-                                                       @endif
+                                                    @if($invoice->invoice_status == 1)
+                                                        <span class="badge badge-danger">{{ trans('Dashboard/Statements_trans.Under_procedure') }}</span>
+                                                    @elseif($invoice->invoice_status == 2)
+                                                        <span class="badge badge-warning">{{ trans('Dashboard/Statements_trans.Review') }}</span>
+                                                    @else
+                                                        <span class="badge badge-success">{{ trans('Dashboard/Statements_trans.Completed') }}</span>
+                                                    @endif
                                                    </td>
 
                                                    <td>{{\App\Models\Diagnostic::where(['invoice_id' => $invoice->id])->first()->review_date}}</td>
@@ -80,16 +80,16 @@
                                                        <div class="dropdown">
                                                            <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-outline-primary btn-sm" data-toggle="dropdown" type="button">{{trans('doctors.Processes')}}<i class="fas fa-caret-down mr-1"></i></button>
                                                            <div class="dropdown-menu tx-13">
-                                                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add_diagnosis{{$invoice->id}}"><i class="text-primary fa fa-stethoscope"></i>&nbsp;&nbsp;اضافة تشخيص </a>
-                                                               <a class="dropdown-item" href="#"><i  class="text-warning far fa-file-alt"></i>&nbsp;&nbsp; اضافة مراجعة </a>
-                                                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_password"><i class="text-primary fas fa-x-ray"></i>&nbsp;&nbsp;تحويل الي الاشعة</a>
-                                                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_status"><i class="text-warning fas fa-syringe"></i>&nbsp;&nbsp;تحويل الي المختبر</a>
-                                                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete"><i class="text-danger  ti-trash"></i>&nbsp;&nbsp;حذف البيانات</a>
+                                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add_diagnosis{{$invoice->id}}"><i class="text-primary fa fa-stethoscope"></i>&nbsp;&nbsp;{{ trans('Dashboard/Statements_trans.Add_Diagnosis') }} </a>
+                                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add_review{{$invoice->id}}"><i class="text-warning far fa-file-alt"></i>&nbsp;&nbsp;{{ trans('Dashboard/Statements_trans.Add_Review') }}</a>
+                                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#xray_conversion{{$invoice->id}}"><i class="text-primary fas fa-x-ray"></i>&nbsp;&nbsp;{{ trans('Dashboard/Statements_trans.ConvertZ_to_X-ray') }}</a>
+                                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#laboratorie_conversion{{$invoice->id}}"><i class="text-warning fas fa-syringe"></i>&nbsp;&nbsp;{{ trans('Dashboard/Statements_trans.Transfer_to_Lab') }}</a>
+                                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete"><i class="text-danger  ti-trash"></i>&nbsp;&nbsp; {{ trans('Dashboard/service_trans.delete') }}</a>
                                                            </div>
                                                        </div>
                                                    </td>
                                                </tr>
-                                               @include('Dashboard.Doctor.invoices.add_diagnosis')
+                                               @include('Dashboard.doctor.invoice.add_diagnosis')
                                            @endforeach
                                             </tbody>
                                         </table>

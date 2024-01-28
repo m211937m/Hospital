@@ -19,4 +19,8 @@ return [
     "Accounts" => "Accounts",
     "Bond_Catch" => "Bond Catch",
     "Exchange_Bond" => "Exchange Bond",
+    "Statements" => "Statements",
+    "List_of_Statements" => "List of Statements",
+    "List_of_completed_statements" => "List of completed statements",
+    "List_of_Rivews" => "List of Rivews",
 ];

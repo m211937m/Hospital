@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\doctor;
 
 use App\Http\Controllers\Controller;
-use App\Interfaces\doctor_dashboard\DiagnosisInterface;
+use App\Interfaces\doctor_dashboard\LaboratorieInterface;
 use Illuminate\Http\Request;
 
-class Diagnostic extends Controller
-
+class LaboratorieController extends Controller
 {
-    private $Diagnostics;
-    public function __construct(DiagnosisInterface $Diagnostics)
+    private $Laboratorie;
+    public function __construct(LaboratorieInterface $Laboratorie)
     {
-        $this->Diagnostics = $Diagnostics;
+        $this->Laboratorie = $Laboratorie ;
     }
 
     public function index()
@@ -20,20 +19,24 @@ class Diagnostic extends Controller
         //
     }
 
+
     public function create()
     {
         //
     }
 
+
     public function store(Request $request)
     {
-        return $this->Diagnostics->store($request);
+       return  $this->Laboratorie->store($request);
     }
+
 
     public function show($id)
     {
-        return $this->Diagnostics->show($id);
+        //
     }
+
 
     public function edit($id)
     {
@@ -42,15 +45,11 @@ class Diagnostic extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        return  $this->Laboratorie->update($request,$id);
     }
 
     public function destroy($id)
     {
-        //
-    }
-    public function add_review(Request $request)
-    {
-        return $this->Diagnostics->add_review($request);
+        return  $this->Laboratorie->destroy($id);
     }
 }
