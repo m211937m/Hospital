@@ -50,6 +50,11 @@ return [
             'driver' => 'session',
             'provider' => 'doctors',
         ],
+
+        'ray_employee' => [
+            'driver' => 'session',
+            'provider' => 'ray_employees',
+        ],
     ],
 
     /*
@@ -85,10 +90,11 @@ return [
             'model' => App\Models\Doctor::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'ray_employees' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Ray_employee::class,
+        ],
+        
     ],
 
     /*

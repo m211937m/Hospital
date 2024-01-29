@@ -23,7 +23,7 @@ return [
     "List_of_Statements" => "قائمة الكشوفات",
     "List_of_completed_statements" => "قائمة الكشوفات المكتملة",
     "List_of_Rivews" => "قائمة المراجعات",
-    "" => "",
+    "employee" => "الموظقين",
     "" => "",
 
 

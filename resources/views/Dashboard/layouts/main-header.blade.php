@@ -263,6 +263,13 @@
                                              onclick="event.preventDefault();
                                              this.closest('form').submit();"><i class="bx bx-log-out"></i>تسجيل الخروج</a>
                                         </form>
+                                    @elseif (auth('ray_employee')->check())
+                                        <form method="POST" action="{{ route('logout.ray_employee') }}">
+                                            @csrf
+                                            <a class="dropdown-item" href="{{ route('logout.ray_employee') }}"
+                                             onclick="event.preventDefault();
+                                             this.closest('form').submit();"><i class="bx bx-log-out"></i>تسجيل الخروج</a>
+                                        </form>
                                     @else
                                         <form method="POST" action="{{ route('logout.doctor') }}">
                                             @csrf

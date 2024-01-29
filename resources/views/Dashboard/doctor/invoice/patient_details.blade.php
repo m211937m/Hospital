@@ -1,4 +1,4 @@
-@extends('Dashboard.layouts.master_doctor')
+@extends('Dashboard.layouts.master')
 @section('css')
     <link href="{{URL::asset('dashboard/plugins/notify/css/notifIt.css')}}" rel="stylesheet"/>
 @endsection
@@ -83,7 +83,7 @@
                                                         <th>#</th>
                                                         <th>{{ trans('Dashboard/group_service_trans.name_service') }} </th>
                                                         <th>{{ trans('Dashboard/single_invoice.doctor_name') }}</th>
-                                                        {{-- <th>اسم موظف الاشعة</th> --}}
+                                                        <th>اسم موظف الاشعة</th>
                                                         <th>{{ trans('Dashboard/service_trans.Status') }}</th>
                                                         <th>{{ trans('Dashboard/doctor_trans.operations') }}</th>
                                                     </tr>
@@ -94,9 +94,9 @@
                                                             <td>{{$loop->iteration}}</td>
                                                             <td>{{$patient_ray->descriptio}}</td>
                                                             <td>{{$patient_ray->doctor->name}}</td>
-{{--                                                        <td>{{$patient_ray->employee_id !==null ? $patient_ray->employee->name:'NOEmployee'}}</td>--}}
-{{--                                                         <td>{{$patient_ray->employee->name ?? 'noEmployee'}}</td>--}}
-                                                            {{-- <td>{{$patient_ray->employee->name}}</td> --}}
+                                                            {{-- <td>{{$patient_ray->employee_id !==null ? $patient_ray->employee->name:'NOEmployee'}}</td> --}}
+                                                            {{-- <td>{{$patient_ray->employee->name ?? 'noEmployee'}}</td> --}}
+                                                            <td>{{$patient_ray->employee->name}}</td>
 
 
                                                             @if($patient_ray->case == 0)

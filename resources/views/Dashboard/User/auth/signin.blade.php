@@ -49,6 +49,7 @@
                                                         <option value="user">{{ trans('Dashboard/login_trans.user') }}</option>
                                                         <option value="admin">{{ trans('Dashboard/login_trans.admin') }}</option>
                                                         <option value="doctor">{{ trans('Dashboard/doctor_trans.doctor ') }}</option>
+                                                        <option value="employee">{{ trans('Dashboard/main-sidebar-trans.employee') }}</option>
                                                     </select>
                                                 </div>
                                                 {{--form user--}}
@@ -89,6 +90,22 @@
                                                     <form method="POST" action="{{ route('login.doctor') }}">
                                                         @csrf
                                                         <div class ='alert alert-info'><h4>{{ trans('Dashboard/doctor_trans.doctor ') }}</h4></div>
+                                                        <div class="form-group">
+                                                            <label>{{ trans('Dashboard/login_trans.Email') }}</label> <input class="form-control"  placeholder="{{ trans('Dashboard/login_trans.Enter_your_email') }}" type="email" name="email" required autofocus autocomplete="username">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>{{ trans('Dashboard/login_trans.Password') }}</label> <input class="form-control" placeholder="{{ trans('Dashboard/login_trans.Enter_your_password') }}"type="password" name="password" required autocomplete="current-password">
+                                                        </div><button type="submit"class="btn btn-main-primary btn-block">{{ trans('Dashboard/login_trans.Sign_In') }}</button>
+                                                    </form>
+                                                    <div class="main-signin-footer mt-5">
+                                                        <p><a href="">{{ trans('Dashboard/login_trans.Forgot_password?') }}</a></p>
+                                                    </div>
+                                                </div>
+                                                {{--form employee --}}
+                                                <div class="loginform" id="employee">
+                                                    <form method="POST" action="{{ route('login.ray_employee') }}">
+                                                        @csrf
+                                                        <div class ='alert alert-info'><h4>{{ trans('Dashboard/main-sidebar-trans.employee') }}</h4></div>
                                                         <div class="form-group">
                                                             <label>{{ trans('Dashboard/login_trans.Email') }}</label> <input class="form-control"  placeholder="{{ trans('Dashboard/login_trans.Enter_your_email') }}" type="email" name="email" required autofocus autocomplete="username">
                                                         </div>

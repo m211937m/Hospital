@@ -1,4 +1,4 @@
-@extends('Dashboard.layouts.master_doctor')
+@extends('Dashboard.layouts.master')
 @section('title')
     {{ trans('Dashboard/main-sidebar-trans.List_of_completed_statements') }}
 @stop

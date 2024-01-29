@@ -1,4 +1,4 @@
-@extends('Dashboard.layouts.master_doctor')
+@extends('Dashboard.layouts.master')
 @section('title')
    {{ trans('Dashboard/Statements_trans.Review') }}
 @stop

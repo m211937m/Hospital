@@ -4,7 +4,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">حذف بيانات موظف</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ trans('Dashboard/employee.Dlete_Employees_information') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -13,7 +13,7 @@
                 {{ method_field('delete') }}
                 {{ csrf_field() }}
             <div class="modal-body">
-                <h5>{{trans('Dashboard/sections_trans.Warning')}} {{$ray_employee->name}}</h5>
+                <h5>{{trans('Dashboard/sections_trans.text')}} {{$ray_employee->name}}</h5>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{trans('Dashboard/sections_trans.Close')}}</button>
