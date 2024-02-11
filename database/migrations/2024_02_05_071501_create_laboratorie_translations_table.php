@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('locale')->index();
             $table->longText('description');
+            $table->longText('descriptio_employee')->nullable();
             $table->unique(['description','locale']);
             $table->foreignId('laboratorie_id')->references('id')->on('laboratories')->onDelete('cascade');
             $table->timestamps();

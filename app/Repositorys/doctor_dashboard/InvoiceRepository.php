@@ -4,6 +4,7 @@ namespace App\Repositorys\doctor_dashboard;
 
 use App\Interfaces\doctor_dashboard\InvoicesInterface;
 use App\Models\Invoice;
+use App\Models\Ray;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,6 +22,16 @@ class InvoiceRepository implements InvoicesInterface
         catch(Exception $e){
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
+    }
+    public function show($id){
+
+           $rays = Ray::findorfail($id);
+            if($rays->doctor_id == auth()->user()->id)
+                {return view('Dashboard.doctor.invoice.view_rays',compact('rays'));}
+            else
+            {return view('Dashboard.404');}
+
+
     }
     //قائمة المراجعات
     public function reviewInvoices(){

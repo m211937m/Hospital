@@ -44,6 +44,7 @@ Route::group(
             Route::get('review_Invoices', [InvoiceContoller::class,'reviewInvoices'])->name('reviewInvoices');
             Route::post('add_review', [Diagnostic::class,'add_review'])->name('add_review');
             Route::get('Patient_Details/{id}', [PatientDetailsController::class,'index'])->name('Patient.Details');
+            Route::get('show.laboratorie/{id}', [PatientDetailsController::class,'show'])->name('show.laboratorie');
             Route::resource('invoice', InvoiceContoller::class);
             Route::resource('Diagnostics', Diagnostic::class);
             Route::resource('rays', Raycontroller::class);

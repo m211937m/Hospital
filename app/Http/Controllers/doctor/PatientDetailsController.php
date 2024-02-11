@@ -18,4 +18,11 @@ class PatientDetailsController extends Controller
         $patient_Laboratories = Laboratorie::where('patient_id',$id)->get();
         return view('Dashboard.doctor.invoice.patient_details',compact(['Patient','patient_records','patient_rays','patient_Laboratories']));
     }
+    public function show($id){
+        $laboratories = Laboratorie::findorfail($id);
+        if($laboratories->doctor_id == auth()->user()->id)
+        {return view('Dashboard.doctor.invoice.view_laboratories' ,compact('laboratories'));}
+        else
+        {return view('Dashboard.404');}
+    }
 }

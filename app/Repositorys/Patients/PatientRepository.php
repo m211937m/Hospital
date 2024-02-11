@@ -39,7 +39,7 @@ class PatientRepository implements PatientInterface
             //save Patient
             $Patient = new Patient();
             $Patient->email = $request->email;
-            $Patient->Password = $request->Phone;
+            $Patient->password = $request->Phone;
             $Patient->Date_Birth = $request->Date_Birth;
             $Patient->phone = $request->Phone;
             $Patient->Gender = $request->Gender;
@@ -94,7 +94,7 @@ class PatientRepository implements PatientInterface
         try{
             $Patient = Patient::findorfail($request->id);
             $Patient->email = $request->email;
-            $Patient->Password = $request->Phone;
+            $Patient->password = $request->Phone;
             $Patient->Date_Birth = $request->Date_Birth;
             $Patient->phone = $request->Phone;
             $Patient->Gender = $request->Gender;

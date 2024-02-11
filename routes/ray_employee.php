@@ -40,8 +40,9 @@ Route::group(
         return view('Dashboard.dashboard_RayEmployee.dashboard');})->middleware(['auth:ray_employee', 'verified'])->name('dashboard.ray_employee');
 
         Route::middleware('auth:ray_employee')->group(function () {
-            Route::get('invoices',[InvoiceController::class,'index'])->name('rayemployee.invoice.index');
-
+            Route::resource('invoices_ray_employee', InvoiceController::class);
+            Route::get('complete_invoices_ray_employee', [InvoiceController::class,'complete_invoices'])->name('complete_invoices_ray_employee');
+            Route::get('view_ray_employee/{id}', [InvoiceController::class,'viewRays'])->name('view_ray_employee');
 
         });
         require __DIR__.'/auth.php';

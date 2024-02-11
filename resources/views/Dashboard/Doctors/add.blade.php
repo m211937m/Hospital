@@ -88,11 +88,12 @@
 									</div>
                                     <div class="row row-xs align-items-center mg-b-20">
 										<div class="col-md-4">
-											<label class="form-label mg-b-0">{{ trans('Dashboard/doctor_trans.image') }}</label>
+											<label class="form-label mg-b-0"><img width="150px" height="150px"id="output"/></label>
 										</div>
 										<div class="col-md-8 mg-t-5 mg-md-t-0">
-											<input accept="image/*" type="file"name="photo"onchange="loadFile(event)">
-                                            <img width="150px" height="150px"id="output"/>
+											<input class="custom-file-input" accept="image/*" type="file"name="photo"onchange="loadFile(event)">
+                                            <label class="custom-file-label" for="customFile">{{ trans('Dashboard/doctor_trans.image') }}</label>
+
 										</div>
 									</div>
 									<input class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5"type="submit" value="{{ trans('Dashboard/doctor_trans.confirm') }}">

@@ -20,14 +20,14 @@
 
     <div class="form-group">
         <label for="exampleFormControlTextarea1">ملاحظات دكتور المختبر</label>
-        <textarea readonly class="form-control" id="exampleFormControlTextarea1" rows="3">{{$laboratories->description_employee}}</textarea>
+        <textarea readonly class="form-control" id="exampleFormControlTextarea1" rows="3">{{$laboratories->descriptio_employee}}</textarea>
     </div>
 
     <!-- Gallery -->
     <div class="demo-gallery">
         <ul id="lightgallery" class="list-unstyled row row-sm pr-0">
 
-            @foreach($laboratories->images as $image)
+            @foreach($laboratories->image as $image)
 
             <li class="col-sm-6 col-lg-4" data-responsive="{{URL::asset('Dashboard/img/laboratories/'.$image->filename)}}" data-src="{{URL::asset('Dashboard/img/Rays/'.$image->filename)}}">
                 <a href="#">

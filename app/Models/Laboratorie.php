@@ -10,10 +10,21 @@ class Laboratorie extends Model
 {
     use HasFactory;
     use Translatable;
-    public $translatedAttributes = ['description'];
-    public $fillable = ['date','description','doctor_id','invoice_id','patient_id'];
+    public $translatedAttributes = ['description','descriptio_employee'];
+    public $fillable = ['date','description','doctor_id','invoice_id','patient_id','descriptio_employee','case','lab_emp_id'];
 
     public function doctor(){
         return $this->belongsTo(Doctor::class);
+    }
+
+    public function patient(){
+        return $this->belongsTo(Patient::class);
+    }
+    public function lab_emp(){
+        return $this->belongsTo(Lab_emp::class);
+    }
+    public function image()
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 }

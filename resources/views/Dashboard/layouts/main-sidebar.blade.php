@@ -18,13 +18,15 @@
 							<span class="mb-0 text-muted">{{Auth::user()->email}}</span>
 						</div>
 						@if (auth('web')->check())
-                            {{-- {{ return redirect(RouteServiceProvider::HOME); }} --}}
+                            @include('Dashboard.layouts.main-sidebar.patient-sidebar-main')
                         @elseif (auth('admin')->check())
                            @include('Dashboard.layouts.main-sidebar.admin-main-sidebar')
                         @elseif (auth('doctor')->check())
                             @include('Dashboard.layouts.main-sidebar.doctor-main-sidbare')
                         @elseif (auth('ray_employee')->check())
                             @include('Dashboard.layouts.main-sidebar.ray-emp;oyee-main-sidbare')
+                        @elseif (auth('lab_emp')->check())
+                            @include('Dashboard.layouts.main-sidebar.lab-emp-main-sidbare')
                         @endif
 					</div>
 				</div>

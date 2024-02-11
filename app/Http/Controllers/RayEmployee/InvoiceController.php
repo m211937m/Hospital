@@ -3,13 +3,20 @@
 namespace App\Http\Controllers\RayEmployee;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\ray_employee_dashborad\InvoicesInterface;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
+    private $invoise;
+    public function __construct(InvoicesInterface $invoise)
+    {
+        $this->invoise = $invoise;
+    }
+
     public function index()
     {
-
+        return $this->invoise->index();
     }
 
     public function create()
@@ -19,7 +26,7 @@ class InvoiceController extends Controller
 
     public function store(Request $request)
     {
-        
+
     }
 
     public function show($id)
@@ -29,16 +36,26 @@ class InvoiceController extends Controller
 
     public function edit($id)
     {
+        return $this->invoise->edit($id);
+    }
 
+    public function viewRays($id)
+    {
+        return $this->invoise->viewRays($id);
     }
 
     public function update(Request $request, $id)
     {
-
+        return $this->invoise->update($request,$id);
     }
 
     public function destroy($id)
     {
 
+    }
+
+    public function complete_invoices()
+    {
+        return $this->invoise->complete_invoices();
     }
 }

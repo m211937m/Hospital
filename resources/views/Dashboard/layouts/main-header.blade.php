@@ -153,66 +153,6 @@
 									</div>
 									<div class="main-notification-list Notification-scroll">
 										<a class="d-flex p-3 border-bottom" href="#">
-											<div class="notifyimg bg-pink">
-												<i class="la la-file-alt text-white"></i>
-											</div>
-											<div class="mr-3">
-												<h5 class="notification-label mb-1">New files available</h5>
-												<div class="notification-subtext">10 hour ago</div>
-											</div>
-											<div class="mr-auto" >
-												<i class="las la-angle-left text-left text-muted"></i>
-											</div>
-										</a>
-										<a class="d-flex p-3" href="#">
-											<div class="notifyimg bg-purple">
-												<i class="la la-gem text-white"></i>
-											</div>
-											<div class="mr-3">
-												<h5 class="notification-label mb-1">Updates Available</h5>
-												<div class="notification-subtext">2 days ago</div>
-											</div>
-											<div class="mr-auto" >
-												<i class="las la-angle-left text-left text-muted"></i>
-											</div>
-										</a>
-										<a class="d-flex p-3 border-bottom" href="#">
-											<div class="notifyimg bg-success">
-												<i class="la la-shopping-basket text-white"></i>
-											</div>
-											<div class="mr-3">
-												<h5 class="notification-label mb-1">New Order Received</h5>
-												<div class="notification-subtext">1 hour ago</div>
-											</div>
-											<div class="mr-auto" >
-												<i class="las la-angle-left text-left text-muted"></i>
-											</div>
-										</a>
-										<a class="d-flex p-3 border-bottom" href="#">
-											<div class="notifyimg bg-warning">
-												<i class="la la-envelope-open text-white"></i>
-											</div>
-											<div class="mr-3">
-												<h5 class="notification-label mb-1">New review received</h5>
-												<div class="notification-subtext">1 day ago</div>
-											</div>
-											<div class="mr-auto" >
-												<i class="las la-angle-left text-left text-muted"></i>
-											</div>
-										</a>
-										<a class="d-flex p-3 border-bottom" href="#">
-											<div class="notifyimg bg-danger">
-												<i class="la la-user-check text-white"></i>
-											</div>
-											<div class="mr-3">
-												<h5 class="notification-label mb-1">22 verified registrations</h5>
-												<div class="notification-subtext">2 hour ago</div>
-											</div>
-											<div class="mr-auto" >
-												<i class="las la-angle-left text-left text-muted"></i>
-											</div>
-										</a>
-										<a class="d-flex p-3 border-bottom" href="#">
 											<div class="notifyimg bg-primary">
 												<i class="la la-check-circle text-white"></i>
 											</div>
@@ -240,42 +180,46 @@
 										<div class="d-flex wd-100p">
 											<div class="main-img-user"><img alt="" src="{{URL::asset('Dashboard/img/faces/6.jpg')}}" class=""></div>
 											<div class="mr-3 my-auto">
-												<h6>Petey Cruiser</h6><span>Premium Member</span>
+												<h6>{{ auth()->user()->name }}</h6><span>{{ auth()->user()->email }}</span>
 											</div>
 										</div>
 									</div>
-									<a class="dropdown-item" href=""><i class="bx bx-user-circle"></i>Profile</a>
-									<a class="dropdown-item" href=""><i class="bx bx-cog"></i> Edit Profile</a>
-									<a class="dropdown-item" href=""><i class="bx bxs-inbox"></i>Inbox</a>
-									<a class="dropdown-item" href=""><i class="bx bx-envelope"></i>Messages</a>
-									<a class="dropdown-item" href=""><i class="bx bx-slider-alt"></i> Account Settings</a>
+									<a class="dropdown-item" href=""><i class="bx bx-user-circle"></i>{{ trans('Dashboard/main-sidebar-trans.profile') }}</a>
+									<a class="dropdown-item" href=""><i class="bx bx-cog"></i>{{ trans('Dashboard/main-sidebar-trans.ubdate_profile') }}</a>
                                     @if (auth('web')->check())
                                         <form method="POST" action="{{ route('logout.user') }}">
                                             @csrf
                                             <a class="dropdown-item" href="{{ route('logout.user') }}"
                                              onclick="event.preventDefault();
-                                             this.closest('form').submit();"><i class="bx bx-log-out"></i>تسجيل الخروج</a>
+                                             this.closest('form').submit();"><i class="bx bx-log-out"></i> {{ trans('Dashboard/main-sidebar-trans.log_out') }}</a>
                                         </form>
                                     @elseif (auth('admin')->check())
                                         <form method="POST" action="{{ route('logout.admin') }}">
                                             @csrf
                                             <a class="dropdown-item" href="{{ route('logout.admin') }}"
                                              onclick="event.preventDefault();
-                                             this.closest('form').submit();"><i class="bx bx-log-out"></i>تسجيل الخروج</a>
+                                             this.closest('form').submit();"><i class="bx bx-log-out"></i>{{ trans('Dashboard/main-sidebar-trans.log_out') }} </a>
                                         </form>
                                     @elseif (auth('ray_employee')->check())
                                         <form method="POST" action="{{ route('logout.ray_employee') }}">
                                             @csrf
                                             <a class="dropdown-item" href="{{ route('logout.ray_employee') }}"
                                              onclick="event.preventDefault();
-                                             this.closest('form').submit();"><i class="bx bx-log-out"></i>تسجيل الخروج</a>
+                                             this.closest('form').submit();"><i class="bx bx-log-out"></i>{{ trans('Dashboard/main-sidebar-trans.log_out') }} </a>
+                                        </form>
+                                    @elseif (auth('lab_emp')->check())
+                                        <form method="POST" action="{{ route('logout.lab_emp') }}">
+                                            @csrf
+                                            <a class="dropdown-item" href="{{ route('logout.lab_emp') }}"
+                                             onclick="event.preventDefault();
+                                             this.closest('form').submit();"><i class="bx bx-log-out"></i>{{ trans('Dashboard/main-sidebar-trans.log_out') }} </a>
                                         </form>
                                     @else
                                         <form method="POST" action="{{ route('logout.doctor') }}">
                                             @csrf
-                                            <a class="dropdown-item" href="{{ route('logout.admin') }}"
+                                            <a class="dropdown-item" href="{{ route('logout.doctor') }}"
                                              onclick="event.preventDefault();
-                                             this.closest('form').submit();"><i class="bx bx-log-out"></i>تسجيل الخروج</a>
+                                             this.closest('form').submit();"><i class="bx bx-log-out"></i>{{ trans('Dashboard/main-sidebar-trans.log_out') }}</a>
                                         </form>
                                     @endif
 

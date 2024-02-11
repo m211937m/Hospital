@@ -23,4 +23,8 @@ return [
     "List_of_Statements" => "List of Statements",
     "List_of_completed_statements" => "List of completed statements",
     "List_of_Rivews" => "List of Rivews",
+
+    "log_out" => "log out",
+    "profile" => "profile",
+    "ubdate_profile" => "ubdate profile",
 ];

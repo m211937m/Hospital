@@ -24,6 +24,10 @@ return [
     "List_of_completed_statements" => "قائمة الكشوفات المكتملة",
     "List_of_Rivews" => "قائمة المراجعات",
     "employee" => "الموظقين",
+
+    "log_out" => "تسجيل الخروج",
+    "profile" => "الملف الشخصي",
+    "ubdate_profile" => "تعديل الملف الشخصي",
     "" => "",
 
 

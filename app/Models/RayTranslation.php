@@ -9,6 +9,6 @@ class RayTranslation extends Model
 {
     use HasFactory;
 
-    public $fillable = ['descriptio'];
+    public $fillable = ['descriptio','descriptio_employee'];
     public $timestamps = false;
 }

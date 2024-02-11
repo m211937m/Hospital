@@ -1,6 +1,6 @@
 @extends('Dashboard.layouts.master')
 @section('title')
-    الكشوفات
+    {{ trans('Dashboard/main-sidebar-trans.Statements') }}
 @stop
 @section('css')
 
@@ -12,7 +12,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">الكشوفات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ الفواتير</span>
+                <h4 class="content-title mb-0 my-auto">{{ trans('Dashboard/main-sidebar-trans.Statements') }}</h4>
+                <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('Dashboard/main-sidebar-trans.invoice') }}</span>
             </div>
         </div>
     </div>
@@ -31,37 +32,31 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>تاريخ الفاتورة</th>
-                                <th>اسم المريض</th>
-                                <th>اسم الدكتور</th>
-                                <th>المطلوب</th>
-                                <th>حالة الفاتورة</th>
-                                <th>العمليات</th>
+                                <th>{{ trans('Dashboard/sections_trans.created_add') }}</th>
+                                <th>{{ trans('Dashboard/single_invoice.patient_name') }}</th>
+                                <th>{{ trans('Dashboard/single_invoice.doctor_name') }}</th>
+                                <th>{{ trans('Dashboard/invoice_doctor_trans.required') }}</th>
+                                <th>{{ trans('Dashboard/doctor_trans.status') }}</th>
+                                <th>{{ trans('Dashboard/doctor_trans.operations') }}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($invoices as $invoice)
+                            @foreach($rays as $ray)
                                 <tr>
                                     <td>{{ $loop->iteration}}</td>
-                                    <td>{{ $invoice->created_at }}</td>
-                                    <td>{{ $invoice->Patient->name }}</td>
-                                    <td>{{ $invoice->doctor->name }}</td>
-                                    <td>{{ $invoice->description }}</td>
+                                    <td>{{ $ray->created_at }}</td>
+                                    <td>{{ $ray->Patient->name }}</td>
+                                    <td>{{ $ray->doctor->name }}</td>
+                                    <td>{{ $ray->descriptio }}</td>
                                     <td>
-                                        @if($invoice->case == 0)
-                                            <span class="badge badge-danger">تحت الاجراء</span>
+                                        @if($ray->case == 0)
+                                            <span class="badge badge-danger">{{ trans('Dashboard/Statements_trans.Under_procedure') }}</span>
                                         @else
-                                            <span class="badge badge-success">مكتملة</span>
+                                            <span class="badge badge-success">{{ trans('Dashboard/Statements_trans.Completed') }}</span>
                                         @endif
                                     </td>
-
                                     <td>
-                                        <div class="dropdown">
-                                            <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-outline-primary btn-sm" data-toggle="dropdown" type="button">{{trans('doctors.Processes')}}<i class="fas fa-caret-down mr-1"></i></button>
-                                            <div class="dropdown-menu tx-13">
-                                                <a class="dropdown-item" href="{{route('invoices_ray_employee.edit',$invoice->id)}}"><i class="text-primary fa fa-stethoscope"></i>&nbsp;&nbsp;اضافة تشخيص </a>
-                                            </div>
-                                        </div>
+                                        <a class="btn ripple btn-outline-primary btn-sm" href="{{ route('invoices_ray_employee.edit',$ray->id) }}"><i class="text-primary fa fa-stethoscope"></i>&nbsp;&nbsp;{{ trans('Dashboard/Statements_trans.Add_Diagnosis') }} </a>
                                     </td>
                                 </tr>
                             @endforeach

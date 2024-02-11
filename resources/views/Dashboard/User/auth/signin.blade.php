@@ -46,19 +46,19 @@
                                                     <label for="">{{ trans('Dashboard/login_trans.type_user') }}</label>
                                                     <select class="form-control" id="sectionChooser">
                                                         <option value=""selected disabled>{{ trans('Dashboard/login_trans.choose_list') }}</option>
-                                                        <option value="user">{{ trans('Dashboard/login_trans.user') }}</option>
+                                                        <option value="user">{{ trans('Dashboard/Patient_trans.Patient') }}</option>
                                                         <option value="admin">{{ trans('Dashboard/login_trans.admin') }}</option>
                                                         <option value="doctor">{{ trans('Dashboard/doctor_trans.doctor ') }}</option>
-                                                        <option value="employee">{{ trans('Dashboard/main-sidebar-trans.employee') }}</option>
+                                                        <option value="ray_employee">{{  trans('Dashboard/Patient_trans.ٌRadiology') }}</option>
+                                                        <option value="laboratirie_employee">{{  trans('Dashboard/Patient_trans.Laboratory') }}</option>
                                                     </select>
                                                 </div>
                                                 {{--form user--}}
                                                 <div class="loginform" id="user">
                                                     <form method="POST" action="{{ route('login.user') }}">
                                                         @csrf
-                                                        <div class ='alert alert-info'><h4>{{ trans('Dashboard/login_trans.user') }}</h4></div>
                                                         <div class="form-group">
-                                                            <label>{{ trans('Dashboard/login_trans.Email') }}</label> <input class="form-control"  placeholder="{{ trans('Dashboard/login_trans.Enter_your_email') }}" type="email" name="email" required autofocus autocomplete="username">
+                                                            <label>{{ trans('Dashboard/validation.attributes.email') }}</label> <input class="form-control"  placeholder="{{ trans('Dashboard/login_trans.Enter_your_email') }}" type="email" name="email" required autofocus autocomplete="username">
                                                         </div>
                                                         <div class="form-group">
                                                             <label>{{ trans('Dashboard/login_trans.Password') }}</label> <input class="form-control" placeholder="{{ trans('Dashboard/login_trans.Enter_your_password') }}"type="password" name="password" required autocomplete="current-password">
@@ -73,9 +73,9 @@
                                                 <div class="loginform" id="admin">
                                                     <form method="POST" action="{{ route('login.admin') }}">
                                                         @csrf
-                                                        <div class ='alert alert-info'><h4>{{ trans('Dashboard/login_trans.admin') }}</h4></div>
+
                                                         <div class="form-group">
-                                                            <label>{{ trans('Dashboard/login_trans.Email') }}</label> <input class="form-control"  placeholder="{{ trans('Dashboard/login_trans.Enter_your_email') }}" type="email" name="email" required autofocus autocomplete="username">
+                                                            <label>{{ trans('Dashboard/validation.attributes.email') }}</label> <input class="form-control"  placeholder="{{ trans('Dashboard/login_trans.Enter_your_email') }}" type="email" name="email" required autofocus autocomplete="username">
                                                         </div>
                                                         <div class="form-group">
                                                             <label>{{ trans('Dashboard/login_trans.Password') }}</label> <input class="form-control" placeholder="{{ trans('Dashboard/login_trans.Enter_your_password') }}"type="password" name="password" required autocomplete="current-password">
@@ -89,9 +89,9 @@
                                                 <div class="loginform" id="doctor">
                                                     <form method="POST" action="{{ route('login.doctor') }}">
                                                         @csrf
-                                                        <div class ='alert alert-info'><h4>{{ trans('Dashboard/doctor_trans.doctor ') }}</h4></div>
+
                                                         <div class="form-group">
-                                                            <label>{{ trans('Dashboard/login_trans.Email') }}</label> <input class="form-control"  placeholder="{{ trans('Dashboard/login_trans.Enter_your_email') }}" type="email" name="email" required autofocus autocomplete="username">
+                                                            <label>{{ trans('Dashboard/validation.attributes.email') }}</label> <input class="form-control"  placeholder="{{ trans('Dashboard/login_trans.Enter_your_email') }}" type="email" name="email" required autofocus autocomplete="username">
                                                         </div>
                                                         <div class="form-group">
                                                             <label>{{ trans('Dashboard/login_trans.Password') }}</label> <input class="form-control" placeholder="{{ trans('Dashboard/login_trans.Enter_your_password') }}"type="password" name="password" required autocomplete="current-password">
@@ -102,12 +102,28 @@
                                                     </div>
                                                 </div>
                                                 {{--form employee --}}
-                                                <div class="loginform" id="employee">
+                                                <div class="loginform" id="ray_employee">
                                                     <form method="POST" action="{{ route('login.ray_employee') }}">
                                                         @csrf
-                                                        <div class ='alert alert-info'><h4>{{ trans('Dashboard/main-sidebar-trans.employee') }}</h4></div>
+
                                                         <div class="form-group">
-                                                            <label>{{ trans('Dashboard/login_trans.Email') }}</label> <input class="form-control"  placeholder="{{ trans('Dashboard/login_trans.Enter_your_email') }}" type="email" name="email" required autofocus autocomplete="username">
+                                                            <label>{{ trans('Dashboard/validation.attributes.email') }}</label> <input class="form-control"  placeholder="{{ trans('Dashboard/login_trans.Enter_your_email') }}" type="email" name="email" required autofocus autocomplete="username">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>{{ trans('Dashboard/login_trans.Password') }}</label> <input class="form-control" placeholder="{{ trans('Dashboard/login_trans.Enter_your_password') }}"type="password" name="password" required autocomplete="current-password">
+                                                        </div><button type="submit"class="btn btn-main-primary btn-block">{{ trans('Dashboard/login_trans.Sign_In') }}</button>
+                                                    </form>
+                                                    <div class="main-signin-footer mt-5">
+                                                        <p><a href="">{{ trans('Dashboard/login_trans.Forgot_password?') }}</a></p>
+                                                    </div>
+                                                </div>
+                                                {{--form employee --}}
+                                                <div class="loginform" id="laboratirie_employee">
+                                                    <form method="POST" action="{{ route('login.lab_emp') }}">
+                                                        @csrf
+
+                                                        <div class="form-group">
+                                                            <label>{{ trans('Dashboard/validation.attributes.email') }}</label> <input class="form-control"  placeholder="{{ trans('Dashboard/login_trans.Enter_your_email') }}" type="email" name="email" required autofocus autocomplete="username">
                                                         </div>
                                                         <div class="form-group">
                                                             <label>{{ trans('Dashboard/login_trans.Password') }}</label> <input class="form-control" placeholder="{{ trans('Dashboard/login_trans.Enter_your_password') }}"type="password" name="password" required autocomplete="current-password">

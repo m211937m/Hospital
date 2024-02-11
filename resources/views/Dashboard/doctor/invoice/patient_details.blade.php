@@ -83,7 +83,7 @@
                                                         <th>#</th>
                                                         <th>{{ trans('Dashboard/group_service_trans.name_service') }} </th>
                                                         <th>{{ trans('Dashboard/single_invoice.doctor_name') }}</th>
-                                                        <th>اسم موظف الاشعة</th>
+                                                        <th>{{ trans('Dashboard/dashboard_trans.name_employee') }}</th>
                                                         <th>{{ trans('Dashboard/service_trans.Status') }}</th>
                                                         <th>{{ trans('Dashboard/doctor_trans.operations') }}</th>
                                                     </tr>
@@ -115,7 +115,7 @@
 
                                                                 @else
                                                                     <td>
-                                                                        <a class="modal-effect btn btn-sm btn-warning"  href="{{route('invoices.show',$patient_ray->id)}}"><i class="fas fa-binoculars"></i></a>
+                                                                        <a class="modal-effect btn btn-sm btn-primary"  href="{{route('invoice.show',$patient_ray->id)}}"><i class="fas fa-binoculars"></i></a>
                                                                     </td>
 
                                                                 @endif
@@ -143,6 +143,7 @@
                                                         <th>#</th>
                                                         <th>{{ trans('Dashboard/group_service_trans.name_service') }}</th>
                                                         <th>{{ trans('Dashboard/single_invoice.doctor_name') }}</th>
+                                                        <th>{{ trans('Dashboard/dashboard_trans.name_employee') }}</th>
                                                         <th>{{ trans('Dashboard/doctor_trans.operations') }}</th>
                                                     </tr>
                                                     </thead>
@@ -152,6 +153,7 @@
                                                             <td>{{$loop->iteration}}</td>
                                                             <td>{{$patient_Laboratorie->description}}</td>
                                                             <td>{{$patient_Laboratorie->doctor->name}}</td>
+                                                            <td>{{$patient_Laboratorie->lab_emp->name}}</td>
 
                                                             @if($patient_Laboratorie->doctor_id == auth()->user()->id)
                                                                 @if($patient_Laboratorie->case == 0)

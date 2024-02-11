@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\DoctorController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\lab_empController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -22,13 +23,15 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login.user');
+    Route::post('login/user', [AuthenticatedSessionController::class, 'store'])->name('login.user');
 
     Route::post('login/admin', [AdminController::class, 'store'])->name('login.admin');
 
     Route::post('login/doctor', [DoctorController::class, 'store'])->name('login.doctor');
 
     Route::post('login/ray_employee', [Ray_employeeController::class, 'store'])->name('login.ray_employee');
+
+    Route::post('login/lab_emp', [lab_empController::class, 'store'])->name('login.lab_emp');
 
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
@@ -70,4 +73,5 @@ Route::middleware('auth')->group(function () {
     Route::post('logout/admin', [AdminController::class, 'destroy'])->middleware('auth:admin')->name('logout.admin');
     Route::post('logout/doctor', [DoctorController::class, 'destroy'])->middleware('auth:doctor')->name('logout.doctor');
     Route::post('logout/ray_employee', [Ray_employeeController::class, 'destroy'])->middleware('auth:ray_employee')->name('logout.ray_employee');
+    Route::post('logout/lab_emp', [lab_empController::class, 'destroy'])->middleware('auth:lab_emp')->name('logout.lab_emp');
 

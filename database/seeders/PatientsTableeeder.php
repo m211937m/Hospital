@@ -18,7 +18,7 @@ class PatientsTableeeder extends Seeder
     {
             $Patient = new Patient();
             $Patient->email = 'pa@gimal.com';
-            $Patient->Password = Hash::make('123456789');
+            $Patient->password = Hash::make('123456789');
             $Patient->Date_Birth = '1999-12-2';
             $Patient->phone = '123456789';
             $Patient->Gender = 1;

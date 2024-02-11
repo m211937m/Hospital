@@ -35,6 +35,16 @@ trait UploadTrait{
 
         return null;
     }
+    public function verifyAndStoreImageForeach($varforesch , $foldername , $disk , $imageable_id, $imageable_type){
+
+        //insert img
+        $Image = new Image();
+        $Image->filename = $varforesch->getClientOriginalName();
+        $Image->imageable_id = $imageable_id;
+        $Image->imageable_type = $imageable_type;
+        $Image->save();
+        return $varforesch->storeAs($foldername,$varforesch->getClientOriginalName(),$disk);
+    }
 
     public function delete_attachment($disk ,$path ,$id ){
 

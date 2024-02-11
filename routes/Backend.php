@@ -1,10 +1,12 @@
 <?php
 
+use App\Events\MyEvent;
 use App\Http\Controllers\Dashboard\AmbulanceController;
 use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\Dashboard\DoctorController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\InsuranceController;
+use App\Http\Controllers\Dashboard\LaboratorieEemployeeController;
 use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\RecipAccountController;
 use App\Http\Controllers\Dashboard\SingleServiceController;
@@ -32,11 +34,15 @@ Route::group(
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ], function(){
 
-        Route::get('/dashboard/user', function () {
-            return view('Dashboard.User.dashboard');})->middleware(['auth', 'verified'])->name('dashboard.user');
 
         Route::get('/dashboard/admin', function () {
-            return view('Dashboard.Admin.dashboard');})->middleware(['auth:admin', 'verified'])->name('dashboard.admin');
+            $date['service'] = App\Models\Service::count();
+            $date['group'] = App\Models\Group::count();
+            $date['doctor'] = App\Models\Doctor::count();
+            $date['patient'] = App\Models\Patient::count();
+            $date['section'] = App\Models\Section::count();
+            return view('Dashboard.Admin.dashboard',$date);
+        })->middleware(['auth:admin', 'verified'])->name('dashboard.admin');
 
 
 
@@ -69,6 +75,8 @@ Route::group(
             Route::resource('Payment', PaymentAccountsController::class);
             //Ray_employee
             Route::resource('ray_employee', Ray_employee::class);
+            // laboratorie_employee
+            Route::resource('laboratorie_employee', LaboratorieEemployeeController::class);
 
         });
         require __DIR__.'/auth.php';
