@@ -143,30 +143,41 @@
 							<div class="dropdown nav-item main-header-notification">
 								<a class="new nav-link" href="#">
 								<svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg><span class=" pulse"></span></a>
-								<div class="dropdown-menu">
+								<div class="dropdown-menu dropdown-notifications">
 									<div class="menu-header-content bg-primary text-right">
 										<div class="d-flex">
 											<h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Notifications</h6>
 											<span class="badge badge-pill badge-warning mr-auto my-auto float-left">Mark All Read</span>
 										</div>
-										<p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 ">You have 4 unread Notifications</p>
+										<p data-count='{{ App\Models\Notification::countNotification(auth()->user()->id)->count() }}'class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 notif-count">{{ App\Models\Notification::countNotification(auth()->user()->id)->count() }}</p>
 									</div>
 									<div class="main-notification-list Notification-scroll">
-										<a class="d-flex p-3 border-bottom" href="#">
-											<div class="notifyimg bg-primary">
-												<i class="la la-check-circle text-white"></i>
-											</div>
+										<div class="new_message">
+											<a class="d-flex p-3 border-bottom" href="">
+												<div class="mr-3">
+													<h4 class="notification-label mb-1"></h4>
+													<div class="notification-subtext"></div>
+												</div>
+												<div class="mr-auto" >
+													<i class="las la-angle-left text-left text-muted"></i>
+												</div>
+											</a>
+										</div>
+                                        @foreach ( App\Models\Notification::where('render_status',0)->where('user_id',auth()->user()->id)->orderBy('created_at', 'desc')->get() as $notification)
+
+										<a class="d-flex p-3 border-bottom" href="">
 											<div class="mr-3">
-												<h5 class="notification-label mb-1">Project has been approved</h5>
-												<div class="notification-subtext">4 hour ago</div>
+												<h5 class="notification-label mb-1">{{ $notification->message }}</h5>
+												<div class="notification-subtext">{{ $notification->created_at }}</div>
 											</div>
 											<div class="mr-auto" >
 												<i class="las la-angle-left text-left text-muted"></i>
 											</div>
 										</a>
+                                        @endforeach
 									</div>
 									<div class="dropdown-footer">
-										<a href="">VIEW ALL</a>
+										<a href="">{{ trans('Dashboard/doctor_trans.view_all ') }}</a>
 									</div>
 								</div>
 							</div>
@@ -235,4 +246,35 @@
 					</div>
 				</div>
 			</div>
+
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+            <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
+
+            {{-- <script type="module" src="{{Url::asset('js/app.js')}}"></script> --}}
+            @vite('resources/js/app.js')
+
+
+
+  <script type="module">
+
+    var notificationsWrapper   = $('.dropdown-notifications');
+    var notificationsCountElem = notificationsWrapper.find('p[data-count]');
+    var notificationsCount  = parseInt(notificationsCountElem.data('count'));
+    var notifications = notificationsWrapper.find('h4.notification-label');
+    var new_message = notificationsWrapper.find('.new_message');
+	new_message.hide();
+
+     Echo.private('create-invoice.{{ auth()->user()->id }}').listen('.create-invoice', (data) => {
+        var newNotificationHtml = `
+                    <h5 class="notification-label mb-1">`+data.message+data.patient+`</h5>
+                    <div class="notification-subtext">`+data.created_at+`</div>`;
+		new_message.show();
+        notifications.html(newNotificationHtml);
+        notificationsCount += 1;
+        notificationsCountElem.attr('data-count', notificationsCount);
+        notificationsWrapper.find('.notif-count').text(notificationsCount);
+        notificationsWrapper.show();
+    });
+</script>
 <!-- /main-header -->

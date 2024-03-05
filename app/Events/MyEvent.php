@@ -14,11 +14,13 @@ class MyEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $invoice_id;
+    public $patient_id;
 
-    public function __construct($message)
+    public function __construct($data)
     {
-        $this->message = $message ;
+        $this->patient_id = $data['patient_id'] ;
+        $this->invoice_id = $data['invoice_id'] ;
     }
 
     public function broadcastOn()

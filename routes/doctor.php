@@ -15,6 +15,8 @@ use App\Http\Controllers\doctor\LaboratorieController;
 use App\Http\Controllers\doctor\PatientDetailsController;
 use App\Http\Controllers\doctor\Raycontroller;
 use App\Http\Controllers\ProfileController;
+use App\Http\Livewire\Chat\Creatchat;
+use App\Http\Livewire\Chat\Main;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -49,6 +51,9 @@ Route::group(
             Route::resource('Diagnostics', Diagnostic::class);
             Route::resource('rays', Raycontroller::class);
             Route::resource('Laboratories', LaboratorieController::class);
+
+            Route::get('list_patient',Creatchat::class)->name('list.Patient');
+            Route::get('chat_patient',Main::class)->name('chat.Patient');
 
         });
         require __DIR__.'/auth.php';
