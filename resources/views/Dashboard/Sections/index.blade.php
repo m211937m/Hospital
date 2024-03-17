@@ -29,7 +29,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table text-md-nowrap" id="example2">
+                        <table class="table text-md-nowrap" id="">
                             <thead>
                                 <tr>
                                     <th class="wd-5 border-bottom-0">#</th>
@@ -62,6 +62,7 @@
                             </tbody>
                         </table>
                     </div>
+                    {{$sections->links()}}
                 </div>
             </div>
 

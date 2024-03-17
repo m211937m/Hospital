@@ -20,7 +20,7 @@ class DoctorRepository implements DoctorInterface
     public function index()
     {
         try{
-            $doctors = Doctor::with('doctorappointments')->get();
+            $doctors = Doctor::with('doctorappointments')->paginate(10);
             return view("Dashboard.Doctors.index",compact("doctors"));
         }
         catch(Exception $e){

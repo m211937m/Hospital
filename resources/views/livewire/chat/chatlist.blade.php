@@ -8,10 +8,10 @@
                 <div class="media new" wire:click='chatuserselected({{$conversation}},`{{$this->get_users($conversation,"id")}}`)'>
                     <div class="media-body">
                         <div class="media-contact-name">
-                            <span>{{$this->get_users($conversation,'name')}}</span> 
-                            <span>{{$conversation->message->last()->created_at->diffForHumans()}}</span>
+                            <span>{{$this->get_users($conversation,'name')}}</span>
+                            <span>{{$conversation->message->created_at->diffForHumans() ?? $conversation->created_at->diffForHumans()}}</span>
                         </div>
-                        <p>{{$conversation->message->last()->body}}</p>
+                        <p>{{$conversation->message->last()->body ?? ''}}</p>
                     </div>
                 </div>
             @empty

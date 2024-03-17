@@ -14,7 +14,7 @@ class SectionRepository implements SectionInterface
     {
         try{
 
-            $sections = Section::all();
+            $sections = Section::paginate(10);
             return view("Dashboard.Sections.index",compact("sections"));
         }
         catch(Exception $e){

@@ -30,7 +30,7 @@
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
-									<table class="table text-md-nowrap" id="example1">
+									<table class="table text-md-nowrap">
 										<thead>
 											<tr>
 												<th>#</th>
@@ -67,6 +67,7 @@
 										</tbody>
 									</table>
 								</div>
+                                {{$Patients->links()}}
 							</div><!-- bd -->
 						</div><!-- bd -->
 					</div>

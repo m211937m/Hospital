@@ -14,6 +14,7 @@ class Chatlist extends Component
     public $auth_email;
     public $receverUser;
     public $selected_conversations;
+    protected $listeners = ['refresh' => '$refresh'];
 
     public function mount(){
         $this->auth_email = auth()->user()->email;
@@ -45,6 +46,7 @@ class Chatlist extends Component
       else{
         $this->emitTo('chat.chatbox','load_conversationPatient',$this->selected_conversations,$this->receverUser);
       }
-        $this->emitTo('chat.sendmessage','updateMessage',$this->selected_conversations,$this->receverUser);    
+        $this->emitTo('chat.sendmessage','updateMessage',$this->selected_conversations,$this->receverUser);
     }
+
 }

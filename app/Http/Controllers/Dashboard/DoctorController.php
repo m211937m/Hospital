@@ -63,4 +63,7 @@ class DoctorController extends Controller
         ]);
         return $this->Doctors->status($request);
     }
+    public function serch(Request $request){
+        return "<script>alert('hhh')</script>";
+    }
 }

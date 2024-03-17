@@ -24,9 +24,10 @@
         <div class="card">
             <div class="card-header pb-0">
                   <a href="{{ route('Doctors.create') }}" class="btn btn-primary">{{ trans('Dashboard/doctor_trans.add') }}</a>
+                  <input type="text" class="form-control m-1 w-25" name="serch" id='serch' onchange="serch(this.value)"placeholder="البحث">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table text-md-nowrap" id="example2">
+                        <table class="table text-md-nowrap" id="">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -43,7 +44,7 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="table">
                             @forelse ($doctors as $doctor)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
@@ -91,9 +92,11 @@
                             @empty
 
                             @endforelse
+                            <div>{{$doctors->links()}}</div>
                             </tbody>
                         </table>
                     </div>
+                    {{-- <a href="{{route('Doctors.index')}}">التالي </a> --}}
                 </div>
             </div>
         </div><!-- bd -->
@@ -101,6 +104,22 @@
 
 @endsection
 @section('js')
+<script>
+   function serch(id) {
+      $('#table').remove();
+      $.ajax({
+        type: 'post',
+        url: '{{route("serch.doctor")}}',
+        dataType:'json',
+        data: {
+          model_id: id
+        },
+        success: function(data) {
+        alert("تم أنشاء الفاتورة بنجاح");
+        }
+      })
+    }
+</script>
 <script src="{{ URL::asset('Dashboard/plugins/notify/js/notifit-custom.js')}}"></script>
 <script src="{{ URL::asset('Dashboard/plugins/notify/js/notifIt.js')}}"></script>
 

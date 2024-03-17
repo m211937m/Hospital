@@ -11,12 +11,12 @@ namespace App\Providers;
     use App\Interfaces\Finance\PaymentRepositoryInterface;
     use App\Interfaces\Finance\ReceiptRepositoryInterface;
     use App\Interfaces\Insurances\InsuranceInterface;
-use App\Interfaces\lab_emp_dashborad\InvoicesInterface as Lab_emp_dashboradInvoicesInterface;
-use App\Interfaces\Laboratorie_employee\Laboratorie_employeeInterface;
-use App\Interfaces\Patients\PatientInterface;
+    use App\Interfaces\lab_emp_dashborad\InvoicesInterface as Lab_emp_dashboradInvoicesInterface;
+    use App\Interfaces\Laboratorie_employee\Laboratorie_employeeInterface;
+    use App\Interfaces\Patients\PatientInterface;
     use App\Interfaces\Ray_employee\Ray_employeeInterface;
-use App\Interfaces\ray_employee_dashborad\InvoicesInterface as Ray_employee_dashboradInvoicesInterface;
-use App\Interfaces\Sections\SectionInterface;
+    use App\Interfaces\ray_employee_dashborad\InvoicesInterface as Ray_employee_dashboradInvoicesInterface;
+    use App\Interfaces\Sections\SectionInterface;
     use App\Interfaces\Services\SingleServiceInterface;
     use App\Repositorys\Ambulances\AmbulanceRepository;
     use App\Repositorys\doctor_dashboard\DiagnosisRepository;
@@ -27,14 +27,15 @@ use App\Interfaces\Sections\SectionInterface;
     use App\Repositorys\Finance\PaymentRepository;
     use App\Repositorys\Finance\ReceiptRepositoryRepository;
     use App\Repositorys\Insurances\InsuranceRepository;
-use App\Repositorys\lab_emp_dashborad\InvoiceRepository as Lab_emp_dashboradInvoiceRepository;
-use App\Repositorys\Laboratorie_employee\Laboratorie_employeeRepository;
-use App\Repositorys\Patients\PatientRepository;
+    use App\Repositorys\lab_emp_dashborad\InvoiceRepository as Lab_emp_dashboradInvoiceRepository;
+    use App\Repositorys\Laboratorie_employee\Laboratorie_employeeRepository;
+    use App\Repositorys\Patients\PatientRepository;
     use App\Repositorys\Ray_employee\Ray_employeeRepository;
-use App\Repositorys\ray_employee_dashborad\InvoiceRepository as Ray_employee_dashboradInvoiceRepository;
-use App\Repositorys\Sections\SectionRepository;
+    use App\Repositorys\ray_employee_dashborad\InvoiceRepository as Ray_employee_dashboradInvoiceRepository;
+    use App\Repositorys\Sections\SectionRepository;
     use App\Repositorys\Services\SingleServiceRepository;
     use Illuminate\Support\ServiceProvider;
+    use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -149,6 +150,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Paginator::useBootstrap();
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Events\MyEvent;
 use App\Http\Controllers\Dashboard\AmbulanceController;
+use App\Http\Controllers\Dashboard\AppoimentContrller;
 use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\Dashboard\DoctorController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -51,6 +52,7 @@ Route::group(
             Route::resource('Sections', SectionController::class);
             // Doctor
             Route::resource('Doctors', DoctorController::class);
+            Route::post('Doctors/serch', [DoctorController::class,'serch'])->name('serch.doctor');
             Route::post('update_password',[ DoctorController::class,'update_password'])->name('doctor.update_password');
             Route::post('status',[ DoctorController::class,'status'])->name('doctor.status');
             //Services
@@ -77,6 +79,12 @@ Route::group(
             Route::resource('ray_employee', Ray_employee::class);
             // laboratorie_employee
             Route::resource('laboratorie_employee', LaboratorieEemployeeController::class);
+
+            //
+            Route::get('appoiments',[AppoimentContrller::class,'index'])->name('appoiments.index');
+            Route::get('appoiments/index2',[AppoimentContrller::class,'index2'])->name('appoiments.index2');
+            Route::post('appoiments/approval',[AppoimentContrller::class,'approval'])->name('appoiments.approval');
+
 
         });
         require __DIR__.'/auth.php';

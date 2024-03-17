@@ -1,6 +1,7 @@
 <!-- Back-to-top -->
 <a href="#top" id="back-to-top"><i class="las la-angle-double-up"></i></a>
 <!-- JQuery min js -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap Bundle js -->
 <script src="{{URL::asset('Dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

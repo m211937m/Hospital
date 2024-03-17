@@ -15,7 +15,7 @@ class PatientRepository implements PatientInterface
     public function index()
     {
         try{
-            $Patients = Patient::all();
+            $Patients = Patient::paginate(10);
             return view("Dashboard.Patients.index",compact("Patients"));
         }
         catch(Exception $e){

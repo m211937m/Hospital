@@ -24,14 +24,14 @@ class Creatchat extends Component
 
     public function render()
     {
-        if(Auth::guard('web')->check()){ 
+        if(Auth::guard('web')->check()){
             $this->users = Doctor::all();
         }
 
         else{
             $this->users = Patient::all();
         }
-        
+
         return view('livewire.chat.creatchat')->extends('Dashboard.layouts.master');
     }
     public function createconversations($receiver_email){
@@ -41,9 +41,9 @@ class Creatchat extends Component
         where('sender_email',$receiver_email)->get();
 
         if($chek_Conversation->isEmpty()){
-            
+
             DB::beginTransaction();
-            
+
                try{
                    $createConversation = new Conversation();
                    $createConversation->sender_email = $this->auth_email;
@@ -51,13 +51,13 @@ class Creatchat extends Component
                    $createConversation->last_time_message = null;
                    $createConversation->save();
                    //cretate Message
-                   $createMessage = new Message();
-                   $createMessage->conversation_id	 = $createConversation->id;
-                   $createMessage->sender_email = $this->auth_email;
-                   $createMessage->receiver_email = $receiver_email;
-                   $createMessage->body = 'ghghghghhg';
-                   $createMessage->save(); 
-       
+                //    $createMessage = new Message();
+                //    $createMessage->conversation_id	 = $createConversation->id;
+                //    $createMessage->sender_email = $this->auth_email;
+                //    $createMessage->receiver_email = $receiver_email;
+                //    $createMessage->body = 'ghghghghhg';
+                //    $createMessage->save();
+
                    DB::commit();
                }
                catch(Exception $e){
@@ -67,6 +67,6 @@ class Creatchat extends Component
         else{
             dd( '<script>alert("found")</script>');
         }
-        
+
     }
 }

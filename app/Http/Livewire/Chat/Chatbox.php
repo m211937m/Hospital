@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class Chatbox extends Component
 {
-    protected $listeners = ['load_conversationDocrtor','load_conversationPatient'];
+    protected $listeners = ['load_conversationDocrtor','load_conversationPatient','pushMessage'];
     public $reciver;
     public $selected_conversations;
     public $receverUser;
@@ -27,6 +27,10 @@ class Chatbox extends Component
         $this->selected_conversations = $conversation;
         $this->receverUser = $reciver;
         $this->messages = Message::where('conversation_id',$this->selected_conversations->id)->get();
+    }
+    public function pushMessage($messageid){
+        $newmessage = Message::find($messageid);
+        $this->messages->push($newmessage);
     }
     public function mount(){
         $this->auth_email = auth()->user()->email;
