@@ -9,7 +9,12 @@
                     <div class="media-body">
                         <div class="media-contact-name">
                             <span>{{$this->get_users($conversation,'name')}}</span>
-                            <span>{{$conversation->message->created_at->diffForHumans() ?? $conversation->created_at->diffForHumans()}}</span>
+                            {{-- <span>{{$conversation->last_time_message == null ? $conversation->created_at->diffForHumans():$conversation->last_time_message->diffForHumans()}}</span> --}}
+                            @if ($conversation->last_time_message === null)
+                                <span>{{$conversation->created_at->diffForHumans()}}</span>
+                            @else
+                                <span>{{$conversation->message->last()->created_at->diffForHumans()}}</span>
+                            @endif
                         </div>
                         <p>{{$conversation->message->last()->body ?? ''}}</p>
                     </div>
